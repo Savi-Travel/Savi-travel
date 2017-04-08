@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Text
+  Text,
+  Button,
+  View
 } from 'react-native';
 
 class App extends Component {
@@ -10,7 +12,10 @@ class App extends Component {
 
   render() {
     return (
-      <Text> This is some text </Text>
+      <View>
+        <Text> This is some text </Text>
+        <Button onPress={() => {}} title="This is a button" />
+      </View>
     );
   }
 }
