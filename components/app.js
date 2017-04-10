@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  Button,
-  View
-} from 'react-native';
+import { Text, Button, View } from 'react-native';
 
 class App extends Component {
   constructor(props) {
