@@ -32,6 +32,7 @@ class HomePage extends Component {
     return (
       <View>
         <Text style={styles.logo}>Savi Travel</Text>
+        <Button onPress={() => {this.props.nav(1)}} title="Go to locations" />
       </View>
     );
   }
