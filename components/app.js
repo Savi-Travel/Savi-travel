@@ -23,7 +23,7 @@ class App extends Component {
           initialRoute={routes[0]}
           initialRouteStack={routes}
           renderScene={(route, navigator) => {
-            return routes[0].page;
+            return routes[1].page;
           }
           }
         />
