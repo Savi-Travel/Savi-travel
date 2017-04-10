@@ -21,7 +21,10 @@ class LocationList extends Component {
 
   render() {
     return (
-      <Text style={styles.locationPage}>Testing from Location List</Text>
+      <View>
+        <Text style={styles.locationPage}>Testing from Location List</Text>
+        <Button onPress={() => {this.props.nav(0)}} title="Go to home" />
+      </View>
     );
   }
 }
