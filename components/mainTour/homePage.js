@@ -84,7 +84,7 @@ class HomePage extends Component {
               return (
                 <View key={i}>
                   <Text>{item.cityId}</Text>
-                  <TouchableHighlight onPress={() => {this.props.nav(1)}}>
+                  <TouchableHighlight onPress={() => {this.props.nav(2)}}>
                     <Image source={{uri: item.mainImage}}
                       style={{width: width / 1.03, height: height / 4, margin: 5}}
                     />
@@ -94,6 +94,7 @@ class HomePage extends Component {
             })}
         </ScrollView>
       </View>
+
     );
   }
 }
