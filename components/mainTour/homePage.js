@@ -94,6 +94,7 @@ class HomePage extends Component {
             })}
         </ScrollView>
       </View>
+
     );
   }
 }

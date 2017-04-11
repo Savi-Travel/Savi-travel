@@ -31,14 +31,13 @@ class App extends Component {
       {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2}
     ];
     return (
-        <Navigator
-          initialRoute={routes[0]}
-          initialRouteStack={routes}
-          renderScene={(route, navigator) => {
+      <Navigator
+        initialRoute={routes[0]}
+        initialRouteStack={routes}
+        renderScene={(route, navigator) => {
             return routes[this.state.currentPage].page;
-            }
           }
-        />
+        }/>
     );
   }
 }
@@ -46,34 +45,34 @@ class App extends Component {
 export default App;
 
 
-/*
-render() {
-    const routes = [
-      {page: <HomePage />, index: 0},
-      {page: <LocationList />, index: 1}
-    ];
-    return (
-        <Navigator
-          initialRoute={routes[0]}
-          initialRouteStack={routes}
-          renderScene={(route, navigator) => {
-            return routes[1].page;
-          }
-          }
-        />
-    );
-  }
-  */
 
-  // StackNavigator component method
-  /*
-   render() {
-    const routes = StackNavigator({
-      Main: {screen: HomePage},
-      Location: {screen: LocationList}
-    });
-    return (
+// render() {
+//     const routes = [
+//       {page: <HomePage />, index: 0},
+//       {page: <LocationList />, index: 1}
+//     ];
+//     return (
+//         <Navigator
+//           initialRoute={routes[0]}
+//           initialRouteStack={routes}
+//           renderScene={(route, navigator) => {
+//             return routes[1].page;
+//           }
+//           }
+//         />
+//     );
+//   }
+  
 
-    );
-  }
-  */
+//   // StackNavigator component method
+  
+//    render() {
+//     const routes = StackNavigator({
+//       Main: {screen: HomePage},
+//       Location: {screen: LocationList}
+//     });
+//     return (
+
+//     );
+//   }
+  
