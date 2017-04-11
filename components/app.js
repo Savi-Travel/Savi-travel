@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { HomePage } from './mainTour/homePage';
 import { LocationList } from './mainTour/locationList';
+import { TourDetails } from './mainTour/tourDetails';
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class App extends Component {
   render() {
     const routes = [
       {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
-      {page: <LocationList nav={this.changePage.bind(this)}/>, index: 1}
+      {page: <LocationList nav={this.changePage.bind(this)}/>, index: 1},
+      {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2}
     ];
     return (
         <Navigator
