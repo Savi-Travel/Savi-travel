@@ -48,39 +48,3 @@ class App extends Component {
 }
 
 export default App;
-<<<<<<< HEAD
-
-
-
-// render() {
-//     const routes = [
-//       {page: <HomePage />, index: 0},
-//       {page: <LocationList />, index: 1}
-//     ];
-//     return (
-//         <Navigator
-//           initialRoute={routes[0]}
-//           initialRouteStack={routes}
-//           renderScene={(route, navigator) => {
-//             return routes[1].page;
-//           }
-//           }
-//         />
-//     );
-//   }
-  
-
-//   // StackNavigator component method
-  
-//    render() {
-//     const routes = StackNavigator({
-//       Main: {screen: HomePage},
-//       Location: {screen: LocationList}
-//     });
-//     return (
-
-//     );
-//   }
-  
-=======
->>>>>>> Made data dynamic for HomePage component and able to pass data
