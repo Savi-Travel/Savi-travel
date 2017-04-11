@@ -6,7 +6,7 @@ import {
   Navigator
 } from 'react-native';
 import { HomePage } from './mainTour/homePage';
-import { LocationList } from './mainTour/locationList';
+import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
 
 class App extends Component {
@@ -14,20 +14,25 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 0
+      currentPage: 0,
+      data: ''
     };
   }
 
-  changePage(pageId) {
+  changePage(pageId, data) {
     this.setState({
-      currentPage: pageId
+      currentPage: pageId,
+      data
     });
   }
 
   render() {
     const routes = [
       {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
-      {page: <LocationList nav={this.changePage.bind(this)}/>, index: 1},
+      {page: <ToursList
+                nav={this.changePage.bind(this)}
+                data={this.state.data}
+              />, index: 1},
       {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2}
     ];
     return (
@@ -43,6 +48,7 @@ class App extends Component {
 }
 
 export default App;
+<<<<<<< HEAD
 
 
 
@@ -76,3 +82,5 @@ export default App;
 //     );
 //   }
   
+=======
+>>>>>>> Made data dynamic for HomePage component and able to pass data
