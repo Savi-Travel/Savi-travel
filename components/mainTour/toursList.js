@@ -33,7 +33,7 @@ class ToursList extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/tours')
+    fetch('https://savi-travel.com:8082/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
