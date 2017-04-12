@@ -16,18 +16,28 @@ const styles = StyleSheet.create({
   },
 
   general: {
-    backgroundColor: '#FFC546'
+    // backgroundColor: '#FFC546',
+    backgroundColor: '#FFFEE4'    
   },
 
   logo: {
     fontSize: 50,
     textAlign: 'center',
     margin: 10,
-    color: '#508BFF'
+    // color: '#88FFEB'
+    color: '#85CCB9'    
+    // color: '#8EFFDB'    
   },
 
   displayPicker: {
-    backgroundColor: '#508BFF'
+    
+  },
+
+  datePickerIOS: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   cityTitlesView: {
@@ -39,7 +49,23 @@ const styles = StyleSheet.create({
 
   cityTitlesText: {                        
     color: 'white', 
-    fontSize: 35                                      
+    fontSize: 35,
+    fontWeight: 'bold'                                      
+  },
+
+  paragraph: {
+    color: '#5AFFD3', 
+  },
+
+  heading: {
+
+  },
+
+  passengersCounter: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

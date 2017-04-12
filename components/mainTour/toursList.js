@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     margin: 10
   },
   tourDesc: {
-    margin: 5
+    margin: 5,
+    color: '#85CCB9'
   },
   tourTitle: {
     textAlign: 'center',
@@ -33,7 +34,7 @@ class ToursList extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8082/api/tours')
+    fetch('https://savi-travel.com:8084/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
