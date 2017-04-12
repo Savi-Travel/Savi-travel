@@ -10,23 +10,29 @@ import {
   Dimensions
 } from 'react-native';
 
+const styles = StyleSheet.create({
+  h1: {
+    fontSize: 50,
+    textAlign: 'center',
+    margin: 10,
+  },
+  h2: {
+    fontSize: 25,
+    textAlign: 'center',
+    margin: 10,
+  }
+});
 
 class ReviewOrder extends Component {
   constructor(props) {
     super(props); //this.props.data contains: {name, passengers, date}
   }
 
-  // componentWillMount() {
-  //   fetch('https://savi-travel.com:8082/api/tours')
-  //     .then(resp => resp.json())
-  //     .then(data => this.setState({data}))
-  //     .catch(err => console.error(err));
-  // }
-
   render() {
     return (
       <View>
-        <Text>{ this.props.data.name }</Text>
+        <Text style={styles.h1}>{ this.props.data.name }</Text>
+        <Text style={styles.h2}>{ this.props.data.tour }</Text>
         <Button onPress={() => {this.props.nav(2)}} title="Back" />
       </View>
     );

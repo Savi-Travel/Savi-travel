@@ -69,9 +69,10 @@ class TourDetails extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <ScrollView>
-          <Image style={{width: width, height: height/2}} source={{uri: this.props.img}}/>
-          <Text style={styles.locationPage}>{this.props.name}</Text>
+          <Image style={{width: width, height: height/2}} source={{uri: this.props.data.img}}/>
+          <Text style={styles.locationPage}>{this.props.data.tour}</Text>
           <Text style={styles.bodyText}>{this.props.desc}</Text>
+          <Text>{ JSON.stringify(this.props.data) }</Text>
           <Button onPress={() => {this.props.nav(1)}} title="Back" />
 
           <Heading label="How many passengers?" />
@@ -87,7 +88,8 @@ class TourDetails extends Component {
             onDateChange={this.onDateChange}/>
 
           <Button onPress={() => {this.props.nav(3, {
-            name: this.props.name,
+            name: this.props.data.name,
+            tour: this.props.data.tour,
             passengers: this.state.passengers, 
             date: this.state.date
           })}} title="Book This Tour" />
