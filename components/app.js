@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styles } from '../styles/styles.js';
 import {
   Text,
   Button,
@@ -51,6 +52,7 @@ class App extends Component {
     ];
     return (
       <Navigator
+        style={styles.general}
         initialRoute={routes[0]}
         initialRouteStack={routes}
         renderScene={(route, navigator) => {

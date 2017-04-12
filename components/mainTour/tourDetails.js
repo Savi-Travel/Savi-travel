@@ -67,34 +67,66 @@ class TourDetails extends Component {
   render() {
     const {width, height} = Dimensions.get('window')
     return (
-      <View style={{flex: 1, flexDirection: 'column'}}>
+      <View>
         <ScrollView>
-          <Image style={{width: width, height: height/2}} source={{uri: this.props.data.img}}/>
-          <Text style={styles.locationPage}>{this.props.data.tour}</Text>
-          <Text style={styles.bodyText}>{this.props.desc}</Text>
-          <Text>{ JSON.stringify(this.props.data) }</Text>
+          <TourInfo 
+            img={this.props.data.img} 
+            title={this.props.data.tour} 
+            description={this.props.desc}
+            dimensions={{width: width, height: height}} 
+          />
+            
           <Button onPress={() => {this.props.nav(1)}} title="Back" />
 
-          <Heading label="How many passengers?" />
-          <DisplayPicker
-            selectedValue={this.state.passengers}
-            onValueChange={(quantity) => this.setState({passengers: quantity})} />
+          <View style={styles.passengersCounter}>              
+            <View style={{width: width * .7, alignItems: 'center'}}>
+              <Text style={styles.heading}>
+                How many passengers?
+              </Text>
+            </View>
+            <View style={{width: width * .3}}>
+              <DisplayPicker                      
+                selectedValue={this.state.passengers}
+                onValueChange={(quantity) => this.setState({passengers: quantity})} 
+              />
+            </View>
+          </View>
 
-          <Heading label="Select the date" />
-          <DatePickerIOS
-            date={this.state.date}
-            mode="date"
-            timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-            onDateChange={this.onDateChange}/>
+          <View style={styles.datePickerIOS}>
+            <View style={{width: width * .7}}>
+              <Heading label="Select the date" />
+              <DatePickerIOS
+                date={this.state.date}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={this.onDateChange}
+              />
+            </View>
+          </View>          
 
           <Button onPress={() => {this.props.nav(3, {
             name: this.props.data.name,
             tour: this.props.data.tour,
             passengers: this.state.passengers, 
             date: this.state.date
-          })}} title="Book This Tour" />
+          })}} title="Book This Tour" 
+          />
 
         </ScrollView>
+      </View>
+    );
+  }
+}
+
+class TourInfo extends React.Component {
+  render() {
+    return (
+      <View style={{height: this.props.dimensions.height}}>
+        <Image 
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
+          source={{uri: this.props.img}}/>      
+        <Text style={styles.locationPage}>{this.props.title}</Text>
+        <Text style={styles.bodyText}>{this.props.description}</Text>        
       </View>
     );
   }
@@ -104,6 +136,7 @@ class DisplayPicker extends React.Component {
   render() {
     return (
       <Picker
+        style={styles.displayPicker}
         selectedValue={this.props.selectedValue}
         onValueChange={this.props.onValueChange}>
         <Picker.Item label="1" value="1" />
