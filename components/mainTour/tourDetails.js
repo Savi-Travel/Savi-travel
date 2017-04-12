@@ -67,16 +67,18 @@ class TourDetails extends Component {
   render() {
     const {width, height} = Dimensions.get('window')
     return (
-      <View style={{flex: 1, flexDirection: 'column'}}>
+      <View>
         <ScrollView>
-          <Image style={{width: width, height: height/2}} source={{uri: this.props.data.img}}/>
-          <Text style={styles.locationPage}>{this.props.data.tour}</Text>
-          <Text style={styles.bodyText}>{this.props.desc}</Text>
-          <Text>{ JSON.stringify(this.props.data) }</Text>
+          <TourInfo 
+            img={this.props.data.img} 
+            title={this.props.data.tour} 
+            description={this.props.desc}
+            dimensions={{width: width, height: height}} />
+            
           <Button onPress={() => {this.props.nav(1)}} title="Back" />
 
           <Heading label="How many passengers?" />
-          <DisplayPicker
+          <DisplayPicker                      
             selectedValue={this.state.passengers}
             onValueChange={(quantity) => this.setState({passengers: quantity})} />
 
@@ -100,10 +102,25 @@ class TourDetails extends Component {
   }
 }
 
+class TourInfo extends React.Component {
+  render() {
+    return (
+      <View style={{height: this.props.dimensions.height}}>
+        <Image 
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
+          source={{uri: this.props.img}}/>      
+        <Text style={styles.locationPage}>{this.props.title}</Text>
+        <Text style={styles.bodyText}>{this.props.description}</Text>        
+      </View>
+    );
+  }
+}
+
 class DisplayPicker extends React.Component {
   render() {
     return (
       <Picker
+        style={styles.displayPicker}
         selectedValue={this.props.selectedValue}
         onValueChange={this.props.onValueChange}>
         <Picker.Item label="1" value="1" />
