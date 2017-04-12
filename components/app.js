@@ -8,6 +8,7 @@ import {
 import { HomePage } from './mainTour/homePage';
 import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
+import { ReviewOrder } from './mainTour/reviewOrder';
 
 class App extends Component {
   constructor(props) {
@@ -36,10 +37,17 @@ class App extends Component {
     const routes = [
       {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
       {page: <ToursList
-                nav={this.changePage.bind(this)}
-                data={this.state.data}
+              nav={this.changePage.bind(this)}
+              data={this.state.data}
               />, index: 1},
-      {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2}
+      {page: <TourDetails 
+              nav={this.changePage.bind(this)}
+              data={this.state.data}
+              />, index: 2},
+      {page: <ReviewOrder 
+              nav={this.changePage.bind(this)}
+              data={this.state.data}
+              />, index: 3}
     ];
     return (
       <Navigator
