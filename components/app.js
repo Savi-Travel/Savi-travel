@@ -20,10 +20,16 @@ class App extends Component {
   }
 
   changePage(pageId, data) {
-    this.setState({
-      currentPage: pageId,
-      data
-    });
+    if (data !== undefined) {
+      this.setState({
+        currentPage: pageId,
+        data
+      });
+    } else {
+      this.setState({
+        currentPage: pageId
+      });
+    }
   }
 
   render() {

@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 50,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: 'lightblue'
   }
 });
 
@@ -33,6 +34,8 @@ class HomePage extends Component {
 
   render() {
     let {width, height} = Dimensions.get('window');
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>
         <Text style={styles.logo}>Savi Travel</Text>
@@ -43,10 +46,10 @@ class HomePage extends Component {
                   <TouchableHighlight
                     onPress={() => {this.props.nav(1, {id: item.id, name: item.name})}}
                   >
-                    <Image source={{uri: item.mainImage}}
-                      style={{width: width / 1.03, height: height / 4, margin: 5}}
+                    <Image source={{uri: imgUri + item.mainImage}}
+                      style={{width: width, height: height / 4}}
                     >
-                    <Text style={{fontWeight: 'bold', color: 'white'}}> {item.id}</Text>
+                    <Text style={{fontWeight: 'bold', color: 'white', fontSize: 20}}> {item.name}</Text>
                     </Image>
                   </TouchableHighlight>
                 </View>

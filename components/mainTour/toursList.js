@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10
   },
-
+  tourDesc: {
+    margin: 5
+  },
+  tourTitle: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });
 
 class ToursList extends Component {
@@ -37,28 +44,32 @@ class ToursList extends Component {
     let tours = this.state.data.filter(item => {
       return item.cityId === this.props.data.id;
     });
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={{flex: 1, justifyContent: 'space-between'}}>
-        <View>
+        <View style={{width: width / 1.03}}>
           <Text style={styles.location}>{this.props.data.name} Tours</Text>
         </View>
         <View>
-          <ScrollView>
+          <ScrollView horizontal={true}>
+            <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'row'}}>
             {tours.map((item, i) => {
               return (
-                <View key={i}>
+                <View key={i} style={{flex: 1, flexDirection: 'column', width: width}}>
+                  <Text style={styles.tourTitle}>{item.title}</Text>
                   <TouchableHighlight
-                    onPress={() => {this.props.nav(1, {id: item.id, name: item.name})}}
+                    onPress={() => { this.props.nav(2, {id: item.id, name: item.name}); }}
                   >
-                    <Image source={{uri: item.mainImage}}
-                      style={{width: width / 1.03, height: height / 4, margin: 5}}
-                    >
-                    <Text style={{fontWeight: 'bold', color: 'white'}}> {item.id}</Text>
-                    </Image>
+                    <Image source={{uri: imgUri + item.mainImage}}
+                      style={{width: width / 1.03, height: height / 2, margin: 5}}
+                    />
                   </TouchableHighlight>
+                  <Text style={styles.tourDesc}>{item.description}</Text>
                 </View>
               )
             })}
+            </View>
         </ScrollView>
         </View>
         <View style={{alignItems: 'flex-start'}}>
