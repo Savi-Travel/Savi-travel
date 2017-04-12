@@ -50,7 +50,7 @@ class TourDetails extends Component {
   };
 
   getTour(){
-    fetch('https://savi-travel.com:8084/api/tour_request', {
+    fetch('https://savi-travel.com:8082/api/tour_request', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -86,8 +86,12 @@ class TourDetails extends Component {
             timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
             onDateChange={this.onDateChange}/>
 
+          <Button onPress={() => {this.props.nav(3, {
+            name: this.props.name,
+            passengers: this.state.passengers, 
+            date: this.state.date
+          })}} title="Book This Tour" />
 
-          <Button title="Get Tour" onPress={() => {this.getTour()}} />
         </ScrollView>
       </View>
     );

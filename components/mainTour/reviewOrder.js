@@ -13,7 +13,7 @@ import {
 
 class ReviewOrder extends Component {
   constructor(props) {
-    super(props);
+    super(props); //this.props.data contains: {name, passengers, date}
   }
 
   // componentWillMount() {
@@ -26,7 +26,8 @@ class ReviewOrder extends Component {
   render() {
     return (
       <View>
-      <Text>Bugger</Text>
+        <Text>{ this.props.data.name }</Text>
+        <Button onPress={() => {this.props.nav(2)}} title="Back" />
       </View>
     );
   }

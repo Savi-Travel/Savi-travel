@@ -41,7 +41,10 @@ class App extends Component {
                 data={this.state.data}
               />, index: 1},
       {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2},
-      {page: <ReviewOrder nav={this.changePage.bind(this)}/>, index: 3}
+      {page: <ReviewOrder 
+                nav={this.changePage.bind(this)}
+                data={this.state.data}
+                />, index: 3}
     ];
     return (
       <Navigator
