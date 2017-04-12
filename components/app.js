@@ -6,7 +6,7 @@ import {
   Navigator
 } from 'react-native';
 import { HomePage } from './mainTour/homePage';
-import { LocationList } from './mainTour/locationList';
+import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
 
 class App extends Component {
@@ -14,20 +14,31 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 0
+      currentPage: 0,
+      data: ''
     };
   }
 
-  changePage(pageId) {
-    this.setState({
-      currentPage: pageId
-    });
+  changePage(pageId, data) {
+    if (data !== undefined) {
+      this.setState({
+        currentPage: pageId,
+        data
+      });
+    } else {
+      this.setState({
+        currentPage: pageId
+      });
+    }
   }
 
   render() {
     const routes = [
       {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
-      {page: <LocationList nav={this.changePage.bind(this)}/>, index: 1},
+      {page: <ToursList
+                nav={this.changePage.bind(this)}
+                data={this.state.data}
+              />, index: 1},
       {page: <TourDetails nav={this.changePage.bind(this)}/>, index: 2}
     ];
     return (
@@ -43,36 +54,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
-// render() {
-//     const routes = [
-//       {page: <HomePage />, index: 0},
-//       {page: <LocationList />, index: 1}
-//     ];
-//     return (
-//         <Navigator
-//           initialRoute={routes[0]}
-//           initialRouteStack={routes}
-//           renderScene={(route, navigator) => {
-//             return routes[1].page;
-//           }
-//           }
-//         />
-//     );
-//   }
-  
-
-//   // StackNavigator component method
-  
-//    render() {
-//     const routes = StackNavigator({
-//       Main: {screen: HomePage},
-//       Location: {screen: LocationList}
-//     });
-//     return (
-
-//     );
-//   }
-  

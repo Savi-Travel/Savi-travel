@@ -26,8 +26,8 @@ class TourDetails extends Component {
   static defaultProps = {
     date: new Date(),
     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-    img: 'https://pbs.twimg.com/media/C4QNypEWEAQT32x.jpg', 
-    name: 'Paris, France', 
+    img: 'https://pbs.twimg.com/media/C4QNypEWEAQT32x.jpg',
+    name: 'Paris, France',
     desc: 'Get served food by incredibly rude waiters!'
   };
 
@@ -51,7 +51,7 @@ class TourDetails extends Component {
 
   getTour(){
     fetch('https://savi-travel.com:8084/api/tour_request', {
-      method: 'POST',      
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -62,20 +62,20 @@ class TourDetails extends Component {
         tour: this.props.name
       })
     })
-  };  
+  };
 
   render() {
     const {width, height} = Dimensions.get('window')
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <ScrollView>
-          <Image style={{width: width, height: height/2}} source={{uri: this.props.img}}/>      
+          <Image style={{width: width, height: height/2}} source={{uri: this.props.img}}/>
           <Text style={styles.locationPage}>{this.props.name}</Text>
           <Text style={styles.bodyText}>{this.props.desc}</Text>
           <Button onPress={() => {this.props.nav(1)}} title="Back" />
 
           <Heading label="How many passengers?" />
-          <DisplayPicker             
+          <DisplayPicker
             selectedValue={this.state.passengers}
             onValueChange={(quantity) => this.setState({passengers: quantity})} />
 
