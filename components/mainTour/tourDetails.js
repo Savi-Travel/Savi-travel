@@ -123,11 +123,11 @@ class TourInfo extends Component {
       }}>
         <Image 
           style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
-          source={{uri: this.props.img}}/>    
-        <View style={styles.detailsDescription}>  
-          <Text style={styles.locationPage}>{this.props.title}</Text>
-          <Text style={styles.bodyText}>{this.props.description}</Text>        
-        </View>  
+          source={{uri: imgUri+this.props.data.mainImage}}
+        />
+
+        <Text style={styles.locationPage}>{this.props.data.title}</Text>
+        <Text style={styles.bodyText}>{this.props.data.description}</Text>        
       </View>
     );
   }
