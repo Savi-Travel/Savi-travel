@@ -81,7 +81,7 @@ class TourDetails extends Component {
             dimensions={{width: width, height: height}} 
           />
             
-          <Button onPress={() => {this.props.nav(1)}} title="Back" />
+          <Button onPress={() => {this.props.nav(1, this.props.data.city)}} title="Back" />
 
           <View style={styles.passengersCounter}>              
             <View style={{width: width * .7, alignItems: 'center'}}>

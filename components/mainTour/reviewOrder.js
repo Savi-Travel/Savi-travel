@@ -43,14 +43,13 @@ class ReviewOrder extends Component {
   render() {
     return (
       <View>
-        <Text>{JSON.stringify(this.props)}</Text>
         <Text style={styles.h1}>{ this.props.data.city.name }</Text>
         <Text style={styles.h2}>{ this.props.data.tour.title }</Text>
         <Text style={styles.body}>You've booked
         {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
         for {this.props.data.info.date.toString()}
         </Text>
-        <Button onPress={() => {this.props.nav(2)}} title="Back" />
+        <Button onPress={() => {this.props.nav(2, {city: this.props.data.city, tour: this.props.data.tour})}} title="Back" />
       </View>
     );
   }
