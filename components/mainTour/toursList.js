@@ -39,7 +39,10 @@ class ToursList extends Component {
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
   }
-
+  /*
+    AVAILABLE PROPS:
+      this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
+  */
   render() {
     let {width, height} = Dimensions.get('window');
     let tours = this.state.data.filter(item => {

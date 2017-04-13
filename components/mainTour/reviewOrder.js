@@ -28,30 +28,29 @@ const styles = StyleSheet.create({
 
 class ReviewOrder extends Component {
   constructor(props) {
-    super(props); //this.props.data contains: {name, tour, passengers, date}
-    this.state = {
-      name: this.props.data.name,
-      tour: this.props.data.tour,
-      seats: this.props.data.passengers,
-      date: this.props.data.date.toString()
-    }
+    super(props);
   }
+
+  /*
+    AVAILABLE PROPS:
+      this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
+      this.props.data.tour = id, title, description, mainImage, 
+                    createdAt, updatedAt, cityId //(granted from the item selected in the toursList.js component)
+      this.props.data.info = date, timeZoneOffsetInHours, 
+                    passengers //(granted from the selections made in the tourDetails.js component)
+  */
 
   render() {
     return (
       <View>
-        <Text style={styles.h1}>{ this.state.name }</Text>
-        <Text style={styles.h2}>{ this.state.tour }</Text>
+        <Text>{JSON.stringify(this.props)}</Text>
+        <Text style={styles.h1}>{ this.props.data.city.name }</Text>
+        <Text style={styles.h2}>{ this.props.data.tour.title }</Text>
         <Text style={styles.body}>You've booked
-        {(this.state.seats>1) ? " "+this.state.seats+" seats " :  " "+this.state.seats+" seat "}
-        for {this.state.date}
+        {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
+        for {this.props.data.info.date.toString()}
         </Text>
-        <Button onPress={() => {this.props.nav(2, {
-          id: item.id, 
-          name: this.props.data.name, 
-          tour: item.title, 
-          img: imgUri + item.mainImage
-        })}} title="Back" />
+        <Button onPress={() => {this.props.nav(2)}} title="Back" />
       </View>
     );
   }
