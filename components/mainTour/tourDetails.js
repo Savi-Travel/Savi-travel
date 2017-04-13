@@ -26,8 +26,6 @@ class TourDetails extends Component {
   static defaultProps = {
     date: new Date(),
     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-    img: 'https://pbs.twimg.com/media/C4QNypEWEAQT32x.jpg',
-    name: 'Paris, France',
     desc: 'Get served food by incredibly rude waiters!'
   };
 
@@ -64,19 +62,26 @@ class TourDetails extends Component {
     })
   };
 
+  /*
+    AVAILABLE PROPS:
+      this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
+      this.props.data.tour = id, title, description, mainImage,
+                    createdAt, updatedAt, cityId //(granted from the item selected in the toursList.js component)
+  */
+
   render() {
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     const {width, height} = Dimensions.get('window')
     return (
       <View>
         <ScrollView>
           <TourInfo
-            img={this.props.data.img}
-            title={this.props.data.tour}
-            description={this.props.desc}
+            data={this.props.data.tour}
             dimensions={{width: width, height: height}}
           />
 
-          <Button onPress={() => {this.props.nav(1)}} title="Back" />
+          <Button onPress={() => {this.props.nav(1, this.props.data.city)}} title="Back" />
 
           <View style={styles.passengersCounter}>
             <View style={{width: width * .7, alignItems: 'center'}}>
@@ -103,13 +108,12 @@ class TourDetails extends Component {
               />
             </View>
           </View>
-
           <Button onPress={() => {this.props.nav(3, {
-            name: this.props.data.name,
+            city: this.props.data.city,
             tour: this.props.data.tour,
-            passengers: this.state.passengers,
-            date: this.state.date
-          })}} title="Book This Tour"
+            info: this.state
+          })}}
+            title="Book This Tour"
           />
 
         </ScrollView>
@@ -118,15 +122,19 @@ class TourDetails extends Component {
   }
 }
 
+
+//Note: the TourInfo component's props are inherited from the tourDetails component. See note above for available props
 class TourInfo extends React.Component {
   render() {
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={{height: this.props.dimensions.height}}>
         <Image
           style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}}
-          source={{uri: this.props.img}}/>
-        <Text style={styles.locationPage}>{this.props.title}</Text>
-        <Text style={styles.bodyText}>{this.props.description}</Text>
+          source={{uri: imgUri+this.props.data.mainImage}}/>
+        <Text style={styles.locationPage}>{this.props.data.title}</Text>
+        <Text style={styles.bodyText}>{this.props.data.description}</Text>
       </View>
     );
   }

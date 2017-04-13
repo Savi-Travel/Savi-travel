@@ -39,7 +39,10 @@ class ToursList extends Component {
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
   }
-
+  /*
+    AVAILABLE PROPS:
+      this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
+  */
   render() {
     let {width, height} = Dimensions.get('window');
     let tours = this.state.data.filter(item => {
@@ -60,11 +63,7 @@ class ToursList extends Component {
                 <View key={i} style={{flex: 1, flexDirection: 'column', width: width}}>
                   <Text style={styles.tourTitle}>{item.title}</Text>
                   <TouchableHighlight
-                    onPress={() => { this.props.nav(2, {
-                      id: item.id,
-                      name: this.props.data.name,
-                      tour: item.title,
-                      img: imgUri + item.mainImage}); }}
+                    onPress={() => { this.props.nav(2, {city: this.props.data, tour: item}); }}
                   >
                     <Image source={{uri: imgUri + item.mainImage}}
                       style={{width: width / 1.03, height: height / 2, margin: 5}}

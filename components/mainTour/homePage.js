@@ -36,7 +36,7 @@ class HomePage extends Component {
               return (
                 <View key={i}>
                   <TouchableHighlight
-                    onPress={() => {this.props.nav(1, {id: item.id, name: item.name})}}
+                    onPress={() => {this.props.nav(1, item)}}
                   >
                     <Image source={{uri: imgUri + item.mainImage}}
                       style={{width: width, height: height / 3, margin: 0}}
@@ -45,6 +45,7 @@ class HomePage extends Component {
                       <Text style={styles.cityTitlesText}>{item.name}</Text>
                     </View>
                     </Image>
+
                   </TouchableHighlight>
                 </View>
               )
