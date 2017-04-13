@@ -26,8 +26,6 @@ class TourDetails extends Component {
   static defaultProps = {
     date: new Date(),
     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-    img: 'https://pbs.twimg.com/media/C4QNypEWEAQT32x.jpg',
-    name: 'Paris, France',
     desc: 'Get served food by incredibly rude waiters!'
   };
 
@@ -65,14 +63,14 @@ class TourDetails extends Component {
   };
 
   render() {
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     const {width, height} = Dimensions.get('window')
     return (
       <View>
         <ScrollView>
           <TourInfo 
-            img={this.props.data.img} 
-            title={this.props.data.tour} 
-            description={this.props.desc}
+            data={this.props.data.tour} 
             dimensions={{width: width, height: height}} 
           />
             
@@ -120,13 +118,15 @@ class TourDetails extends Component {
 
 class TourInfo extends React.Component {
   render() {
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={{height: this.props.dimensions.height}}>
         <Image 
           style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
-          source={{uri: this.props.img}}/>      
-        <Text style={styles.locationPage}>{this.props.title}</Text>
-        <Text style={styles.bodyText}>{this.props.description}</Text>        
+          source={{uri: imgUri+this.props.data.mainImage}}/>
+        <Text style={styles.locationPage}>{this.props.data.title}</Text>
+        <Text style={styles.bodyText}>{this.props.data.description}</Text>        
       </View>
     );
   }

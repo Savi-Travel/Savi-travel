@@ -18,7 +18,7 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8084/api/cities')
+    fetch('https://savi-travel.com:8082/api/cities')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
@@ -36,15 +36,16 @@ class HomePage extends Component {
               return (
                 <View key={i}>
                   <TouchableHighlight
-                    onPress={() => {this.props.nav(1, {id: item.id, name: item.name})}}
+                    onPress={() => {this.props.nav(1, item)}}
                   >
                     <Image source={{uri: imgUri + item.mainImage}}
                       style={{width: width, height: height / 3, margin: 0}}
                     >
                     <View style={styles.cityTitlesView}>
-                      <Text style={styles.cityTitlesText}>{item.name}</Text>                      
+                      <Text style={styles.cityTitlesText}>{item.name}</Text>                     
                     </View>                    
                     </Image>
+
                   </TouchableHighlight>
                 </View>
               )
