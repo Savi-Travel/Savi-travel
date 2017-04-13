@@ -18,7 +18,7 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8082/api/cities')
+    fetch('https://savi-travel.com:8080/api/cities')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
@@ -42,8 +42,8 @@ class HomePage extends Component {
                       style={{width: width, height: height / 3, margin: 0}}
                     >
                     <View style={styles.cityTitlesView}>
-                      <Text style={styles.cityTitlesText}>{item.name}</Text>                     
-                    </View>                    
+                      <Text style={styles.cityTitlesText}>{item.name}</Text>
+                    </View>
                     </Image>
 
                   </TouchableHighlight>

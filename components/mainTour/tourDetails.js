@@ -48,7 +48,7 @@ class TourDetails extends Component {
   };
 
   getTour(){
-    fetch('https://savi-travel.com:8082/api/tour_request', {
+    fetch('https://savi-travel.com:8080/api/tour_request', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -65,7 +65,7 @@ class TourDetails extends Component {
   /*
     AVAILABLE PROPS:
       this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
-      this.props.data.tour = id, title, description, mainImage, 
+      this.props.data.tour = id, title, description, mainImage,
                     createdAt, updatedAt, cityId //(granted from the item selected in the toursList.js component)
   */
 
@@ -76,23 +76,23 @@ class TourDetails extends Component {
     return (
       <View>
         <ScrollView>
-          <TourInfo 
-            data={this.props.data.tour} 
-            dimensions={{width: width, height: height}} 
+          <TourInfo
+            data={this.props.data.tour}
+            dimensions={{width: width, height: height}}
           />
-            
+
           <Button onPress={() => {this.props.nav(1, this.props.data.city)}} title="Back" />
 
-          <View style={styles.passengersCounter}>              
+          <View style={styles.passengersCounter}>
             <View style={{width: width * .7, alignItems: 'center'}}>
               <Text style={styles.heading}>
                 How many passengers?
               </Text>
             </View>
             <View style={{width: width * .3}}>
-              <DisplayPicker                      
+              <DisplayPicker
                 selectedValue={this.state.passengers}
-                onValueChange={(quantity) => this.setState({passengers: quantity})} 
+                onValueChange={(quantity) => this.setState({passengers: quantity})}
               />
             </View>
           </View>
@@ -107,13 +107,13 @@ class TourDetails extends Component {
                 onDateChange={this.onDateChange}
               />
             </View>
-          </View>          
+          </View>
           <Button onPress={() => {this.props.nav(3, {
-            city: this.props.data.city, 
-            tour: this.props.data.tour, 
+            city: this.props.data.city,
+            tour: this.props.data.tour,
             info: this.state
-          })}} 
-            title="Book This Tour" 
+          })}}
+            title="Book This Tour"
           />
 
         </ScrollView>
@@ -130,11 +130,11 @@ class TourInfo extends React.Component {
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={{height: this.props.dimensions.height}}>
-        <Image 
-          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
+        <Image
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}}
           source={{uri: imgUri+this.props.data.mainImage}}/>
         <Text style={styles.locationPage}>{this.props.data.title}</Text>
-        <Text style={styles.bodyText}>{this.props.data.description}</Text>        
+        <Text style={styles.bodyText}>{this.props.data.description}</Text>
       </View>
     );
   }
