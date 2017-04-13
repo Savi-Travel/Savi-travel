@@ -8,9 +8,13 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  DatePickerIOS,
+  DatePickerAndroid,
+  TouchableOpacity,
   TextInput,
   ScrollView,
-  Picker
+  Picker,
+  Platform
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
@@ -91,7 +95,6 @@ class TourDetails extends Component {
           })}}
             title="Book This Tour"
           />
-
         </ScrollView>
       </View>
     );
@@ -115,6 +118,16 @@ class TourInfo extends Component {
           source={{uri: imgUri+this.props.data.mainImage}}/>
         <Text style={styles.locationPage}>{this.props.data.title}</Text>
         <Text style={styles.bodyText}>{this.props.data.description}</Text>
+      <View style={{
+        height: this.props.dimensions.height,         
+      }}>
+        <Image 
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
+          source={{uri: this.props.img}}/>    
+        <View style={styles.detailsDescription}>  
+          <Text style={styles.locationPage}>{this.props.title}</Text>
+          <Text style={styles.bodyText}>{this.props.description}</Text>        
+        </View>  
       </View>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styles } from '../../styles/styles.js';
 import {
   Text,
   Button,
@@ -9,23 +10,6 @@ import {
   Image,
   Dimensions
 } from 'react-native';
-
-const styles = StyleSheet.create({
-  location: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10
-  },
-  tourDesc: {
-    margin: 5,
-    color: '#85CCB9'
-  },
-  tourTitle: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold'
-  }
-});
 
 class ToursList extends Component {
   constructor(props) {

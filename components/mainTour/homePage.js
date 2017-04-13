@@ -30,8 +30,8 @@ class HomePage extends Component {
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>
-        <Text style={styles.logo}>Savi Travel</Text>
         <ScrollView>
+        <Text style={styles.logo}>Savi Travel</Text>
             {this.state.data.map((item, i) => {
               return (
                 <View key={i}>
