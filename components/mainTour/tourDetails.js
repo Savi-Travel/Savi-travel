@@ -50,7 +50,7 @@ class TourDetails extends Component {
   };
 
   getTour(){
-    fetch('https://savi-travel.com:8082/api/tour_request', {
+    fetch('https://savi-travel.com:8080/api/tour_request', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -69,25 +69,25 @@ class TourDetails extends Component {
     return (
       <View>
         <ScrollView>
-          <TourInfo 
-            img={this.props.data.img} 
-            title={this.props.data.tour} 
+          <TourInfo
+            img={this.props.data.img}
+            title={this.props.data.tour}
             description={this.props.desc}
-            dimensions={{width: width, height: height}} 
+            dimensions={{width: width, height: height}}
           />
-            
+
           <Button onPress={() => {this.props.nav(1)}} title="Back" />
 
-          <View style={styles.passengersCounter}>              
+          <View style={styles.passengersCounter}>
             <View style={{width: width * .7, alignItems: 'center'}}>
               <Text style={styles.heading}>
                 How many passengers?
               </Text>
             </View>
             <View style={{width: width * .3}}>
-              <DisplayPicker                      
+              <DisplayPicker
                 selectedValue={this.state.passengers}
-                onValueChange={(quantity) => this.setState({passengers: quantity})} 
+                onValueChange={(quantity) => this.setState({passengers: quantity})}
               />
             </View>
           </View>
@@ -102,14 +102,14 @@ class TourDetails extends Component {
                 onDateChange={this.onDateChange}
               />
             </View>
-          </View>          
+          </View>
 
           <Button onPress={() => {this.props.nav(3, {
             name: this.props.data.name,
             tour: this.props.data.tour,
-            passengers: this.state.passengers, 
+            passengers: this.state.passengers,
             date: this.state.date
-          })}} title="Book This Tour" 
+          })}} title="Book This Tour"
           />
 
         </ScrollView>
@@ -122,11 +122,11 @@ class TourInfo extends React.Component {
   render() {
     return (
       <View style={{height: this.props.dimensions.height}}>
-        <Image 
-          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
-          source={{uri: this.props.img}}/>      
+        <Image
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}}
+          source={{uri: this.props.img}}/>
         <Text style={styles.locationPage}>{this.props.title}</Text>
-        <Text style={styles.bodyText}>{this.props.description}</Text>        
+        <Text style={styles.bodyText}>{this.props.description}</Text>
       </View>
     );
   }

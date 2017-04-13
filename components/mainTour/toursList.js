@@ -34,7 +34,7 @@ class ToursList extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8084/api/tours')
+    fetch('https://savi-travel.com:8080/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
@@ -61,9 +61,9 @@ class ToursList extends Component {
                   <Text style={styles.tourTitle}>{item.title}</Text>
                   <TouchableHighlight
                     onPress={() => { this.props.nav(2, {
-                      id: item.id, 
-                      name: this.props.data.name, 
-                      tour: item.title, 
+                      id: item.id,
+                      name: this.props.data.name,
+                      tour: item.title,
                       img: imgUri + item.mainImage}); }}
                   >
                     <Image source={{uri: imgUri + item.mainImage}}
