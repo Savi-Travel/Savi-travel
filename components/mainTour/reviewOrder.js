@@ -68,9 +68,9 @@ class ReviewOrder extends Component {
   /*
     AVAILABLE PROPS:
       this.props.data.city = id, name, mainImage //(granted from the item selected on the homePage.js component)
-      this.props.data.tour = id, title, description, mainImage, 
+      this.props.data.tour = id, title, description, mainImage,
                     createdAt, updatedAt, cityId //(granted from the item selected in the toursList.js component)
-      this.props.data.info = date, timeZoneOffsetInHours, 
+      this.props.data.info = date, timeZoneOffsetInHours,
                     passengers //(granted from the selections made in the tourDetails.js component)
     AVAILABLE STATE:
       this.state.data.driver = id, userName, userEmail, mdn, country, photo, type, createdAt, updatedAt, cityId
