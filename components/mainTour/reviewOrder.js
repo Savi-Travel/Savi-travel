@@ -59,11 +59,11 @@ class ReviewOrder extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8082/api/bookings?tourId='+this.props.data.tour.id+'&date=1')
+    fetch('https://savi-travel.com:8080/api/bookings?tourId='+this.props.data.tour.id+'&date=1')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
-  } 
+  }
 
   /*
     AVAILABLE PROPS:
@@ -91,7 +91,7 @@ class ReviewOrder extends Component {
         {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
         for {this.props.data.info.date.toString()}
         </Text>
-        
+
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View style={{flex: 1, flexDirection: 'column'}}>
             <Text style={styles.body}>Your driver is</Text>
@@ -106,11 +106,11 @@ class ReviewOrder extends Component {
             <Image style={{width: (width/2)-1, height: (width/2)-1, margin: 1}} source={{uri: imgUri+this.state.data.guide.photo}}>
             </Image>
             <Text style={styles.userName}>{this.state.data.guide.userName}</Text>
-            <Text style={styles.body2}>{this.state.data.guide.userEmail}</Text> 
-          </View>          
+            <Text style={styles.body2}>{this.state.data.guide.userEmail}</Text>
+          </View>
         </View>
 
-        
+
         <Button onPress={() => {this.props.nav(2, {city: this.props.data.city, tour: this.props.data.tour})}} title="Back" />
       </View>
     );

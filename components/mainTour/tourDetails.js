@@ -8,16 +8,19 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  DatePickerIOS,
   TextInput,
   ScrollView,
   Picker
 } from 'react-native';
+import DatePicker from 'react-native-datepicker';
 
 class TourDetails extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      date: "04-14-2017",
+      passengers: 1
+    }
     var acceptBtn = () => {
       this.props.nav(1)
     };
@@ -97,17 +100,23 @@ class TourDetails extends Component {
             </View>
           </View>
 
-          <View style={styles.datePickerIOS}>
-            <View style={{width: width * .7}}>
-              <Heading label="Select the date" />
-              <DatePickerIOS
-                date={this.state.date}
-                mode="date"
-                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-                onDateChange={this.onDateChange}
-              />
-            </View>
+          <View>
+            <Text>Select Tour Date</Text>
+            <DatePicker
+              style={{width: 200}}
+              date={this.state.date}
+              mode="date"
+              placeholder="placeholder"
+              format="MM-DD-YYYY"
+              minDate="04-14-2017"
+              maxDate="05-01-2017"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={this.onDateChange}
+            />
           </View>
+
+
           <Button onPress={() => {this.props.nav(3, {
             city: this.props.data.city,
             tour: this.props.data.tour,
@@ -172,5 +181,20 @@ class Heading extends React.Component {
     );
   }
 }
+
+// was right above button, line 104
+/*
+<View style={styles.datePickerIOS}>
+            <View style={{width: width * .7}}>
+              <Heading label="Select the date" />
+              <DatePickerIOS
+                date={this.state.date}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={this.onDateChange}
+              />
+            </View>
+          </View>
+*/
 
 export { TourDetails };
