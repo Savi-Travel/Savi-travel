@@ -19,6 +19,7 @@ class TourDetails extends Component {
     super(props);
     this.state = {
       date: new Date(),
+      endDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
       passengers: 1
     }
     var acceptBtn = () => {
@@ -54,8 +55,8 @@ class TourDetails extends Component {
 
           <View style={styles.passengersCounter}>
             <View style={{width: width * .7, alignItems: 'center'}}>
-              <Text style={styles.heading}>
-                Select number of passengers
+              <Text style={{fontSize: 15}}>
+                Select Number of Passengers
               </Text>
             </View>
             <View style={{width: width * .3}}>
@@ -66,9 +67,8 @@ class TourDetails extends Component {
             </View>
           </View>
 
-          <View>
-            <Text>Select Tour Date</Text>
-            <Text>{JSON.stringify(new Date())}</Text>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={{margin: 15, fontSize: 15}}>Select Tour Date</Text>
             <DatePicker
               style={{width: 200}}
               date={this.state.date}
@@ -76,7 +76,7 @@ class TourDetails extends Component {
               placeholder="placeholder"
               format="MM-DD-YYYY"
               minDate={this.state.date}
-              maxDate={new Date(this.state.date + 30)}
+              maxDate={this.state.endDate}
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               onDateChange={this.onDateChange}
