@@ -18,7 +18,7 @@ class TourDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: "04-14-2017",
+      date: new Date(),
       passengers: 1
     }
     var acceptBtn = () => {
@@ -26,43 +26,9 @@ class TourDetails extends Component {
     };
   }
 
-  static defaultProps = {
-    date: new Date(),
-    timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-    desc: 'Get served food by incredibly rude waiters!'
-  };
-
-  state = {
-    date: this.props.date,
-    timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
-    passengers: 1
-  };
-
+  // this format of a method handles the binding issue
   onDateChange = (date) => {
-    this.setState({date: date});
-  };
-
-  onTimezoneChange = (event) => {
-    var offset = parseInt(event.nativeEvent.text, 10);
-    if (isNaN(offset)) {
-      return;
-    }
-    this.setState({timeZoneOffsetInHours: offset});
-  };
-
-  getTour(){
-    fetch('https://savi-travel.com:8080/api/tour_request', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        date: this.state.date,
-        passengers: this.state.passengers,
-        tour: this.props.name
-      })
-    })
+    this.setState({date});
   };
 
   /*
@@ -75,13 +41,13 @@ class TourDetails extends Component {
   render() {
     let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
-    const {width, height} = Dimensions.get('window')
+    const {width, height} = Dimensions.get('window');
     return (
       <View>
         <ScrollView>
           <TourInfo
             data={this.props.data.tour}
-            dimensions={{width: width, height: height}}
+            dimensions={{width, height}}
           />
 
           <Button onPress={() => {this.props.nav(1, this.props.data.city)}} title="Back" />
@@ -89,7 +55,7 @@ class TourDetails extends Component {
           <View style={styles.passengersCounter}>
             <View style={{width: width * .7, alignItems: 'center'}}>
               <Text style={styles.heading}>
-                How many passengers?
+                Select number of passengers
               </Text>
             </View>
             <View style={{width: width * .3}}>
@@ -102,14 +68,15 @@ class TourDetails extends Component {
 
           <View>
             <Text>Select Tour Date</Text>
+            <Text>{JSON.stringify(new Date())}</Text>
             <DatePicker
               style={{width: 200}}
               date={this.state.date}
               mode="date"
               placeholder="placeholder"
               format="MM-DD-YYYY"
-              minDate="04-14-2017"
-              maxDate="05-01-2017"
+              minDate={this.state.date}
+              maxDate={new Date(this.state.date + 30)}
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               onDateChange={this.onDateChange}
@@ -133,7 +100,11 @@ class TourDetails extends Component {
 
 
 //Note: the TourInfo component's props are inherited from the tourDetails component. See note above for available props
-class TourInfo extends React.Component {
+class TourInfo extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
@@ -149,7 +120,11 @@ class TourInfo extends React.Component {
   }
 }
 
-class DisplayPicker extends React.Component {
+class DisplayPicker extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Picker
@@ -169,32 +144,5 @@ class DisplayPicker extends React.Component {
     );
   }
 }
-
-class Heading extends React.Component {
-  render() {
-    return (
-      <View style={styles.headingContainer}>
-        <Text style={styles.heading}>
-          {this.props.label}
-        </Text>
-      </View>
-    );
-  }
-}
-
-// was right above button, line 104
-/*
-<View style={styles.datePickerIOS}>
-            <View style={{width: width * .7}}>
-              <Heading label="Select the date" />
-              <DatePickerIOS
-                date={this.state.date}
-                mode="date"
-                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-                onDateChange={this.onDateChange}
-              />
-            </View>
-          </View>
-*/
 
 export { TourDetails };
