@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -59,7 +60,7 @@ class ReviewOrder extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/bookings?tourId='+this.props.data.tour.id+'&date=1')
+    fetch('https://savi-travel.com:'+ config.port +'/api/bookings?tourId='+this.props.data.tour.id+'&date=1')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));

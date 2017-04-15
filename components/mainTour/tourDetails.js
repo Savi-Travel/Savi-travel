@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import { styles } from '../../styles/styles.js';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -34,6 +35,29 @@ class TourDetails extends Component {
   // this format of a method handles the binding issue
   onDateChange = (date) => {
     this.setState({date});
+  };
+
+  onTimezoneChange = (event) => {
+    var offset = parseInt(event.nativeEvent.text, 10);
+    if (isNaN(offset)) {
+      return;
+    }
+    this.setState({timeZoneOffsetInHours: offset});
+  };
+
+  getTour(){
+    fetch('https://savi-travel.com:'+ port +'/api/tour_request', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: this.state.date,
+        passengers: this.state.passengers,
+        tour: this.props.name
+      })
+    })
   };
 
   /*

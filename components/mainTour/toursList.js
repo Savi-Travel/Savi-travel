@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from '../../styles/styles.js';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -18,7 +19,7 @@ class ToursList extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/tours')
+    fetch('https://savi-travel.com:'+ port +'/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
