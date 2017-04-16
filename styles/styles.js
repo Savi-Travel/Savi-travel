@@ -2,35 +2,66 @@ import {
   StyleSheet
 } from 'react-native';
 
+const textGreen = '#85CCB9';
+const sandColor = '#FFFEE4';
+const whiteColor = 'white';
+
 const styles = StyleSheet.create({
   locationPage: {
     fontSize: 50,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: textGreen
+  },
+
+  location: {
+    fontSize: 50,
+    textAlign: 'center',
+    margin: 10,
+    color: textGreen
+  },
+
+  tourDesc: {
+    margin: 5,
+    color: '#85CCB9'
+  },
+
+  tourTitle: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: textGreen
   },
 
   bodyText: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 5
+    margin: 5,
+    color: textGreen
   },
 
-  general: {
-    // backgroundColor: '#FFC546',
-    backgroundColor: '#FFFEE4'    
+  general: {    
+    backgroundColor: sandColor    
   },
 
   logo: {
     fontSize: 50,
     textAlign: 'center',
     margin: 10,
-    // color: '#88FFEB'
-    color: '#85CCB9'    
-    // color: '#8EFFDB'    
+    color: textGreen
   },
 
   displayPicker: {
-    
+  
+  },
+
+  detailsDescription: {
+    borderWidth: 2,
+    borderColor: textGreen,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingBottom: 20
   },
 
   datePickerIOS: {
@@ -48,17 +79,9 @@ const styles = StyleSheet.create({
   },
 
   cityTitlesText: {                        
-    color: 'white', 
+    color: whiteColor, 
     fontSize: 35,
     fontWeight: 'bold'                                      
-  },
-
-  paragraph: {
-    color: '#5AFFD3', 
-  },
-
-  heading: {
-
   },
 
   passengersCounter: {
@@ -66,6 +89,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+  getTourButton: {
+    backgroundColor: textGreen
   }
 });
 

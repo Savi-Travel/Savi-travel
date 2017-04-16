@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styles } from '../../styles/styles.js';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -8,8 +9,11 @@ import {
   StyleSheet,
   Dimensions,
   TouchableHighlight,
+  TouchableOpacity,
   ScrollView
 } from 'react-native';
+
+import FBSDK, { LoginManager } from 'react-native-fbsdk'
 
 class HomePage extends Component {
   constructor(props) {
@@ -18,20 +22,40 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/cities')
+    fetch('https://savi-travel.com:'+ port +'/api/cities')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
   }
 
+  facebookLogin() {
+     LoginManager.logInWithReadPermissions(['public_profile']).then(
+      function(result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        } else {
+          alert('Login success with permissions: '
+            +result.grantedPermissions.toString());
+        }
+      },
+      function(error) {
+        alert('Login fail with error: ' + error);
+      })
+  }
+
   render() {
     let {width, height} = Dimensions.get('window');
-    let port = 8080;
+    
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>
-        <Text style={styles.logo}>Savi Travel</Text>
         <ScrollView>
+        <Text style={styles.logo}>Savi Travel</Text>
+        <TouchableOpacity onPress={this.facebookLogin}>
+          <Text>
+            Login Facebook
+          </Text>
+        </TouchableOpacity>
             {this.state.data.map((item, i) => {
               return (
                 <View key={i}>

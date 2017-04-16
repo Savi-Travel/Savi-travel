@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import { styles } from '../../styles/styles.js';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -8,9 +9,13 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  DatePickerIOS,
+  DatePickerAndroid,
+  TouchableOpacity,
   TextInput,
   ScrollView,
-  Picker
+  Picker,
+  Platform
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
@@ -30,6 +35,29 @@ class TourDetails extends Component {
   // this format of a method handles the binding issue
   onDateChange = (date) => {
     this.setState({date});
+  };
+
+  onTimezoneChange = (event) => {
+    var offset = parseInt(event.nativeEvent.text, 10);
+    if (isNaN(offset)) {
+      return;
+    }
+    this.setState({timeZoneOffsetInHours: offset});
+  };
+
+  getTour(){
+    fetch('https://savi-travel.com:'+ port +'/api/tour_request', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: this.state.date,
+        passengers: this.state.passengers,
+        tour: this.props.name
+      })
+    })
   };
 
   /*
@@ -91,7 +119,6 @@ class TourDetails extends Component {
           })}}
             title="Book This Tour"
           />
-
         </ScrollView>
       </View>
     );
@@ -106,8 +133,7 @@ class TourInfo extends Component {
   }
 
   render() {
-    let port = 8080;
-    let imgUri = `https://savi-travel.com:${port}/api/images/`;
+    let imgUri = 'https://savi-travel.com:' + port + '}/api/images/';
     return (
       <View style={{height: this.props.dimensions.height}}>
         <Image
@@ -115,6 +141,16 @@ class TourInfo extends Component {
           source={{uri: imgUri+this.props.data.mainImage}}/>
         <Text style={styles.locationPage}>{this.props.data.title}</Text>
         <Text style={styles.bodyText}>{this.props.data.description}</Text>
+      <View style={{
+        height: this.props.dimensions.height,         
+      }}>
+        <Image 
+          style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}} 
+          source={{uri: imgUri+this.props.data.mainImage}}
+        />
+
+        <Text style={styles.locationPage}>{this.props.data.title}</Text>
+        <Text style={styles.bodyText}>{this.props.data.description}</Text>        
       </View>
     );
   }
