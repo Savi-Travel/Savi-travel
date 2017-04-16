@@ -133,8 +133,7 @@ class TourInfo extends Component {
   }
 
   render() {
-    let port = 8080;
-    let imgUri = `https://savi-travel.com:${port}/api/images/`;
+    let imgUri = 'https://savi-travel.com:' + port + '}/api/images/';
     return (
       <View style={{height: this.props.dimensions.height}}>
         <Image
