@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { styles } from '../../styles/styles.js';
+import { port } from '../../config';
 import {
   Text,
   Button,
@@ -10,23 +12,6 @@ import {
   Dimensions
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  location: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10
-  },
-  tourDesc: {
-    margin: 5,
-    color: '#85CCB9'
-  },
-  tourTitle: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold'
-  }
-});
-
 class ToursList extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +19,7 @@ class ToursList extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/tours')
+    fetch('https://savi-travel.com:'+ port +'/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));

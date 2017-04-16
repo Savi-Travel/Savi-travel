@@ -58,7 +58,8 @@ class App extends Component {
         renderScene={(route, navigator) => {
             return routes[this.state.currentPage].page;
           }
-        }/>
+        }
+      />
     );
   }
 }
