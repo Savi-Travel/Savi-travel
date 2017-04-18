@@ -10,6 +10,7 @@ import { HomePage } from './mainTour/homePage';
 import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
 import { ReviewOrder } from './mainTour/reviewOrder';
+import { WelcomeView } from './welcome';
 
 class App extends Component {
   constructor(props) {
@@ -17,8 +18,18 @@ class App extends Component {
 
     this.state = {
       currentPage: 0,
+      logged: false,
+      profile: '',
+      token: '',
+      initialPage: 0,
       data: ''
     };
+  }
+
+  componentWillMount() {
+    if (this.state.logged === false) {
+      this.setState({ currentPage: 4 });
+    }
   }
 
   changePage(pageId, data) {
@@ -34,6 +45,15 @@ class App extends Component {
     }
   }
 
+  login(info) {
+    this.setState({
+      currentPage: info.page,
+      logged: info.logged,
+      profile: info.profile,
+      token: info.token
+    });
+  }
+
   render() {
     const routes = [
       {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
@@ -41,14 +61,15 @@ class App extends Component {
               nav={this.changePage.bind(this)}
               data={this.state.data}
               />, index: 1},
-      {page: <TourDetails 
+      {page: <TourDetails
               nav={this.changePage.bind(this)}
               data={this.state.data}
               />, index: 2},
-      {page: <ReviewOrder 
+      {page: <ReviewOrder
               nav={this.changePage.bind(this)}
               data={this.state.data}
-              />, index: 3}
+              />, index: 3},
+      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4}
     ];
     return (
       <Navigator
@@ -56,8 +77,8 @@ class App extends Component {
         initialRoute={routes[0]}
         initialRouteStack={routes}
         renderScene={(route, navigator) => {
-            return routes[this.state.currentPage].page;
-          }
+          return routes[this.state.currentPage].page;
+        }
         }/>
     );
   }
