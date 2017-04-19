@@ -54,7 +54,13 @@ class RegisterUser extends Component {
     // this.mdnInput.value = '';
     console.log('phone number: ', this.mdnInput.value);
     let userInfo = {
-
+      userId: this.props.data.identities[0].userId,
+      profileData: {
+        name: this.props.data.name,
+        email: this.props.data.email,
+        phone: this.state.mdn,
+        country: this.state.country
+      }
     };
   }
 
