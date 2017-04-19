@@ -19,11 +19,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 0,
-      logged: false,
+      currentPage: 5,
+      logged: true,
       profile: '',
       token: '',
-      initialPage: 0,
       data: ''
     };
   }
@@ -73,7 +72,10 @@ class App extends Component {
               data={this.state.data}
               />, index: 3},
       {page: <WelcomeView log={this.login.bind(this)}/>, index: 4},
-      {page: <RegisterUser nav={this.changePage.bind(this)}/>, index: 5},
+      {page: <RegisterUser
+              nav={this.changePage.bind(this)}
+              data={this.state.profile}
+              />, index: 5},
       {page: <UserProfile
               nav={this.changePage.bind(this)}
               data={this.state.profile}

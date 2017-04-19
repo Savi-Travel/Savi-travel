@@ -28,7 +28,7 @@ class UserProfile extends Component {
   render() {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
-
+    // check userType - worker/tourist
     return (
       <View style={styles.container}>
         <Text>User Page</Text>
@@ -41,3 +41,4 @@ class UserProfile extends Component {
 export { UserProfile };
 
 // helper functions
+// change Hello based on language
