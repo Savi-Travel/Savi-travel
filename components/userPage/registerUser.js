@@ -16,7 +16,7 @@ let styles = StyleSheet.create({
   }
 });
 
-class UserProfile extends Component {
+class RegisterUser extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,18 +26,15 @@ class UserProfile extends Component {
   }
 
   render() {
-    // this page is to render profile image
-    // add buttons to continue as tourist/worker (for workers)
-
     return (
       <View style={styles.container}>
-        <Text>User Page</Text>
+        <Text>Register User Page</Text>
         <Text>{JSON.stringify(this.props.data)}</Text>
       </View>
     );
   }
 }
 
-export { UserProfile };
+export { RegisterUser };
 
 // helper functions

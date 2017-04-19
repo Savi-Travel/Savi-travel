@@ -27,13 +27,13 @@ class WelcomeView extends Component {
         console.log(err);
         return;
       }
-      let test = {
-        page: 0,
+      let info = {
+        page: 5,
         logged: true,
         profile,
         token
       };
-      this.props.log(test);
+      this.props.log(info);
     });
   }
 

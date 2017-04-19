@@ -11,6 +11,8 @@ import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
 import { ReviewOrder } from './mainTour/reviewOrder';
 import { WelcomeView } from './welcome';
+import { RegisterUser } from './userPage/registerUser';
+import { UserProfile } from './userPage/userProfile';
 
 class App extends Component {
   constructor(props) {
@@ -59,6 +61,7 @@ class App extends Component {
       profile: info.profile,
       token: info.token
     });
+    // add POST request to backend
   }
 
   render() {
@@ -77,7 +80,12 @@ class App extends Component {
               data={this.state.data}
               paymentInfo={this.state.paymentInfo}
               />, index: 3},
-      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4}
+      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4},
+      {page: <RegisterUser nav={this.changePage.bind(this)}/>, index: 5},
+      {page: <UserProfile
+              nav={this.changePage.bind(this)}
+              data={this.state.profile}
+              />, index: 6}
     ];
     return (
       <Navigator
