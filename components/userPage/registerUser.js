@@ -136,3 +136,4 @@ export { RegisterUser };
 
 // helper functions
 // after registration redirect to page 6
+
