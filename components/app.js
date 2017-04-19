@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   changePage(pageId, data, paymentInfo) {
-    if(paymentInfo !== undefined) {
+    if (paymentInfo !== undefined) {
       this.setState({
         paymentInfo
       });
@@ -81,7 +81,10 @@ class App extends Component {
               paymentInfo={this.state.paymentInfo}
               />, index: 3},
       {page: <WelcomeView log={this.login.bind(this)}/>, index: 4},
-      {page: <RegisterUser nav={this.changePage.bind(this)}/>, index: 5},
+      {page: <RegisterUser
+              nav={this.changePage.bind(this)}
+              data={this.state.profile}
+              />, index: 5},
       {page: <UserProfile
               nav={this.changePage.bind(this)}
               data={this.state.profile}

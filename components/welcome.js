@@ -27,6 +27,9 @@ class WelcomeView extends Component {
         console.log(err);
         return;
       }
+      // check if user exists
+        // if user does not exist, send to page 5
+        // if user exist, send to page 6
       let info = {
         page: 5,
         logged: true,
