@@ -45,7 +45,9 @@ class RegisterUser extends Component {
       mdn: '',
       country: '',
       city: '',
-      languages: []
+      primary: '',
+      otherLanguage: '',
+      complete: true
     });
   }
 
@@ -75,26 +77,47 @@ class RegisterUser extends Component {
     });
   }
 
-  handleMdn(e) {
-
-    this.setState({
-      mdn: e.target.value
-    });
-  }
-
   render() {
     console.log('Auth stuff: ', this.props.data);
     return (
       <View style={styles.container}>
-        <Text>Registration</Text>
+        <Text style={styles.register}>Registration</Text>
         <View>
           <TextInput
             style={styles.inputBox}
             placeholder='Phone Number, e.g. 14155555555'
             maxLength={11}
-            keyboardType='numeric'
+            keyboardType={'numeric'}
             value={this.state.mdn}
             onChangeText={mdn => this.setState({mdn})}
+          />
+           <TextInput
+            style={styles.inputBox}
+            placeholder='City'
+            maxLength={50}
+            value={this.state.city}
+            onChangeText={city => this.setState({city})}
+          />
+           <TextInput
+            style={styles.inputBox}
+            placeholder='Country'
+            maxLength={50}
+            value={this.state.country}
+            onChangeText={country => this.setState({country})}
+          />
+          <TextInput
+            style={styles.inputBox}
+            placeholder='Primary Language'
+            maxLength={25}
+            value={this.state.languages}
+            onChangeText={languages => this.setState({languages})}
+          />
+           <TextInput
+            style={styles.inputBox}
+            placeholder='Language(s), e.g. English, Spanish, ...'
+            maxLength={25}
+            value={this.state.languages}
+            onChangeText={languages => this.setState({languages})}
           />
         </View>
         <Text>Phone number format here: {this.state.mdn}</Text>
