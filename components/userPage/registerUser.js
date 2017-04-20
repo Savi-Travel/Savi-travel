@@ -50,9 +50,8 @@ class RegisterUser extends Component {
   }
 
   createUser(userInput) {
-    console.log('phone number: ', this.mdnInput.value);
     let userInfo = {
-      userId: this.props.data.identities[0].userId,
+      // userId: this.props.data.identities[0].userId,
       profileData: {
         name: this.props.data.name,
         email: this.props.data.email,
@@ -60,7 +59,9 @@ class RegisterUser extends Component {
         city: this.state.city,
         country: this.state.country,
         photo: this.props.data.picture,
-        languages: [...this.state.languages, language]
+        // add languages from input
+        // need to determine what input is coming in
+        languages: []
       }
     };
     // set conditional for required info
@@ -74,18 +75,29 @@ class RegisterUser extends Component {
     });
   }
 
+  handleMdn(e) {
+
+    this.setState({
+      mdn: e.target.value
+    });
+  }
+
   render() {
     console.log('Auth stuff: ', this.props.data);
     return (
       <View style={styles.container}>
         <Text>Registration</Text>
-        <TextInput
-          style={styles.inputBox}
-          placeholder='Phone Number, e.g. 14155555555'
-          maxLength={11}
-          keyboardType='numeric'
+        <View>
+          <TextInput
+            style={styles.inputBox}
+            placeholder='Phone Number, e.g. 14155555555'
+            maxLength={11}
+            keyboardType='numeric'
+            value={this.state.mdn}
+            onChangeText={mdn => this.setState({mdn})}
           />
-        <Text>Phone number format here</Text>
+        </View>
+        <Text>Phone number format here: {this.state.mdn}</Text>
         <TouchableHighlight
           style={styles.submitButton}
           underlayColor='#949494'
