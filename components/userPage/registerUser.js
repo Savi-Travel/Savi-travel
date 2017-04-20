@@ -77,13 +77,6 @@ class RegisterUser extends Component {
     });
   }
 
-  handleMdn(e) {
-
-    this.setState({
-      mdn: e.target.value
-    });
-  }
-
   render() {
     console.log('Auth stuff: ', this.props.data);
     return (
