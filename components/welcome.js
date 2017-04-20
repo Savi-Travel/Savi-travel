@@ -66,13 +66,16 @@ class WelcomeView extends Component {
         console.log(err);
         return;
       }
-      let test = {
-        page: 0,
+      // check if user exists
+        // if user does not exist, send to page 5
+        // if user exist, send to page 6
+      let info = {
+        page: 5,
         logged: true,
         profile,
         token
       };
-      this.props.log(test);
+      this.props.log(info);
     });
   }
 
