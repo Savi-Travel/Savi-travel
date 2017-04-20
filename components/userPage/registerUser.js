@@ -49,9 +49,7 @@ class RegisterUser extends Component {
     });
   }
 
-  createUser() {
-    // POST request to backend
-    // this.mdnInput.value = '';
+  createUser(userInput) {
     console.log('phone number: ', this.mdnInput.value);
     let userInfo = {
       userId: this.props.data.identities[0].userId,
@@ -59,9 +57,14 @@ class RegisterUser extends Component {
         name: this.props.data.name,
         email: this.props.data.email,
         phone: this.state.mdn,
-        country: this.state.country
+        city: this.state.city,
+        country: this.state.country,
+        photo: this.props.data.picture,
+        languages: [...this.state.languages, language]
       }
     };
+    // POST request to backend
+    // clear state
   }
 
   render() {
@@ -73,8 +76,7 @@ class RegisterUser extends Component {
           style={styles.inputBox}
           placeholder='Phone Number, e.g. 14155555555'
           maxLength={11}
-          keyboardType={'numeric'}
-          ref={mdnInput => this.mdnInput = mdnInput}
+          keyboardType='numeric'
           />
         <Text>Phone number format here</Text>
         <TouchableHighlight
