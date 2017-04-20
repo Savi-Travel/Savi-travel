@@ -20,7 +20,7 @@ class App extends Component {
 
     this.state = {
       currentPage: 0,
-      logged: true,
+      logged: false,
       profile: '',
       token: '',
       initialPage: 0,
