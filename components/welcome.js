@@ -31,7 +31,7 @@ class WelcomeView extends Component {
         // if user does not exist, send to page 5
         // if user exist, send to page 6
       let info = {
-        page: 5,
+        page: 6,
         logged: true,
         profile,
         token
