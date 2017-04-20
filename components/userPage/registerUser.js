@@ -63,8 +63,15 @@ class RegisterUser extends Component {
         languages: [...this.state.languages, language]
       }
     };
+    // set conditional for required info
     // POST request to backend
     // clear state
+    this.setState({
+      mdn: '',
+      country: '',
+      city: '',
+      languages: []
+    });
   }
 
   render() {
