@@ -19,8 +19,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 5,
-      logged: true,
+      currentPage: 0,
+      logged: false,
       profile: '',
       token: '',
       data: ''
