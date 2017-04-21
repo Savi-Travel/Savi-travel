@@ -61,6 +61,7 @@ class WelcomeView extends Component {
         })
         .catch(err => console.error(err));
         // if user does not exist, send to page 5 (registration)
+        // no token needed for now (delete if decision is final)
         // if user exist, send to page 6 (user profile)
     });
   }

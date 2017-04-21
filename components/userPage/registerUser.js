@@ -91,7 +91,7 @@ class RegisterUser extends Component {
             value={this.state.mdn}
             onChangeText={mdn => this.setState({mdn})}
           />
-           <TextInput
+          <TextInput
             style={styles.inputBox}
             placeholder='City'
             maxLength={50}
@@ -128,6 +128,33 @@ class RegisterUser extends Component {
           <Text>Create account</Text>
         </TouchableHighlight>
       </View>
+    );
+  }
+}
+
+// Component: Available cities
+class CitySelector extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+  }
+
+  componentWillMount() {
+    fetch('https://savi-travel.com:8080/api/cities')
+      .then(resp => resp.json())
+      .then(data => this.setState({data}))
+      .catch(err => console.error(err));
+  }
+
+  render() {
+    return (
+      <TextInput
+        style={styles.inputBox}
+        placeholder='City'
+        maxLength={50}
+        value={this.state.city}
+        onChangeText={city => this.setState({city})}
+      />
     );
   }
 }
