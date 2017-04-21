@@ -28,15 +28,40 @@ class WelcomeView extends Component {
         return;
       }
       // check if user exists
+      fetch('https://savi-travel.com:8080/api/users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        // dynamic user id
+        body: JSON.stringify({ userId: profile.identities[0].userId })
+        // testing for existing users
+        // body: JSON.stringify({ userId: 'ABCDEFGHIJKLMNOP1' })
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.exists === false) {
+            let info = {
+              page: 5,
+              logged: true,
+              profile,
+              token
+            };
+            this.props.log(info);
+          } else {
+            let info = {
+              page: 6,
+              logged: true,
+              profile,
+              token
+            };
+            this.props.log(info);
+          }
+        })
+        .catch(err => console.error(err));
         // if user does not exist, send to page 5 (registration)
         // if user exist, send to page 6 (user profile)
-      let info = {
-        page: 6,
-        logged: true,
-        profile,
-        token
-      };
-      this.props.log(info);
     });
   }
 
