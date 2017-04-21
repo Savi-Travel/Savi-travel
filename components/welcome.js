@@ -28,8 +28,8 @@ class WelcomeView extends Component {
         return;
       }
       // check if user exists
-        // if user does not exist, send to page 5
-        // if user exist, send to page 6
+        // if user does not exist, send to page 5 (registration)
+        // if user exist, send to page 6 (user profile)
       let info = {
         page: 6,
         logged: true,
