@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TextInput
 } from 'react-native';
+import Autocomplete from 'react-native-autocomplete-input';
 
 let styles = StyleSheet.create({
   container: {
@@ -35,6 +36,14 @@ let styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  autocompleteContainer: {
+    flex: 1,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1
   }
 });
 
@@ -136,7 +145,10 @@ class RegisterUser extends Component {
 class CitySelector extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = {
+      data: [],
+      city: ''
+    };
   }
 
   componentWillMount() {
@@ -147,14 +159,26 @@ class CitySelector extends Component {
   }
 
   render() {
-    return (
-      <TextInput
-        style={styles.inputBox}
-        placeholder='City'
-        maxLength={50}
-        value={this.state.city}
-        onChangeText={city => this.setState({city})}
-      />
+    const { query } = this.state;
+    const data = this._filterData(query)
+    return(
+      <View>
+        <View style={styles.autocompleteContainer}>
+          <Autocomplete
+            data={data}
+            defaultValue={query}
+            onChangeText={text => this.setState({ query: text })}
+            renderItem={data => (
+              <TouchableOpacity onPress={() => this.setState({ query: data })}>
+                <Text>{data}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <View>
+          <Text>Some content</Text>
+        <View />
+      <View>
     );
   }
 }
