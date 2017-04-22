@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Styles from '../styles/styles.js';
 import {
   StyleSheet,
   Text,
@@ -13,45 +13,6 @@ import Auth0Lock from 'react-native-lock';
 import credentials from '../auth0-credentials';
 
 let lock = new Auth0Lock(credentials);
-
-let styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#15204C',
-  },
-  messageBox: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  badge: {
-    alignSelf: 'center',
-    height: 169,
-    width: 151,
-  },
-  title: {
-    fontSize: 17,
-    textAlign: 'center',
-    marginTop: 8,
-    color: '#FFFFFF',
-  },
-  subtitle: {
-    fontSize: 17,
-    textAlign: 'center',
-    marginTop: 4,
-    color: '#FFFFFF',
-  },
-  signInButton: {
-    height: 50,
-    alignSelf: 'stretch',
-    backgroundColor: '#D9DADF',
-    margin: 10,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 class WelcomeView extends Component {
   constructor(props) {
@@ -78,16 +39,16 @@ class WelcomeView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.messageBox}>
+      <View style={Styles.components.container}>
+        <View style={Styles.components.messageBox}>
           <Image
-            style={styles.badge}
+            style={Styles.components.badge}
             source={require('./mainTour/saviTeam.png')}
           />
-          <Text style={styles.title}>Welcome to Savi Travel</Text>
+          <Text style={Styles.components.title}>Welcome to Savi Travel</Text>
         </View>
         <TouchableHighlight
-          style={styles.signInButton}
+          style={Styles.components.signInButton}
           underlayColor='#949494'
           onPress={this._onLogin.bind(this)}>
           <Text>Log In</Text>

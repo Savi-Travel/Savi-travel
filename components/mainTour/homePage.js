@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { styles } from '../../styles/styles.js';
+import Styles from '../../styles/styles.js';
 import {
   Text,
   Button,
@@ -18,7 +18,7 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/cities')
+    fetch('https://savi-travel.com:8084/api/cities')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
@@ -30,8 +30,8 @@ class HomePage extends Component {
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>
-        <Text style={styles.logo}>Savi Travel</Text>
         <ScrollView>
+          <Text style={Styles.components.logo}>Savi Travel</Text>
             {this.state.data.map((item, i) => {
               return (
                 <View key={i}>
@@ -41,8 +41,8 @@ class HomePage extends Component {
                     <Image source={{uri: imgUri + item.mainImage}}
                       style={{width: width, height: height / 3, margin: 0}}
                     >
-                    <View style={styles.cityTitlesView}>
-                      <Text style={styles.cityTitlesText}>{item.name}</Text>
+                    <View style={Styles.components.cityTitlesView}>
+                      <Text style={Styles.components.cityTitlesText}>{item.name}</Text>
                     </View>
                     </Image>
 

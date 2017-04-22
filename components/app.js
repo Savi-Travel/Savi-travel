@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { styles } from '../styles/styles.js';
+import Styles from '../styles/styles.js';
 import {
   Text,
   Button,
@@ -18,7 +18,7 @@ class App extends Component {
 
     this.state = {
       currentPage: 0,
-      logged: false,
+      logged: true,
       profile: '',
       token: '',
       initialPage: 0,
@@ -73,7 +73,7 @@ class App extends Component {
     ];
     return (
       <Navigator
-        style={styles.general}
+        style={Styles.components.general}
         initialRoute={routes[0]}
         initialRouteStack={routes}
         renderScene={(route, navigator) => {

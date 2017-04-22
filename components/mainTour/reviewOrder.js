@@ -1,40 +1,14 @@
 import React, { Component } from 'react';
+import Styles from '../../styles/styles.js';
 import {
   Text,
   Button,
   View,
   StyleSheet,
   Image,
+  TouchableHighlight,
   Dimensions
 } from 'react-native';
-
-const styles = StyleSheet.create({
-  h1: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10,
-  },
-  h2: {
-    fontSize: 25,
-    textAlign: 'center',
-    margin: 10,
-  },
-  body: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 10,
-  },
-  body2: {
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  userName: {
-    fontSize: 25,
-    textAlign: 'center',
-    margin: 5,
-    fontWeight: 'bold'
-  }
-});
 
 class ReviewOrder extends Component {
   constructor(props) {
@@ -79,39 +53,113 @@ class ReviewOrder extends Component {
 
   render() {
     let {width, height} = Dimensions.get('window');
-    let port = 8080;
+    let port = 8084;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
-      <View style={{flex: 1, flexDirection: 'column'}}>
-        <Text style={styles.h1}>{ this.props.data.city.name }</Text>
-        <Text style={styles.h2}>{ this.props.data.tour.title }</Text>
-
-        <Text style={styles.body}>
-        You've booked
-        {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
-        for {this.props.data.info.date.toString()}
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        paddingLeft: 30,
+        paddingRight: 30
+      }}>
+        <Text
+          style={Styles.components.h1}>{ this.props.data.city.name }
         </Text>
 
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={{flex: 1, flexDirection: 'column'}}>
-            <Text style={styles.body}>Your driver is</Text>
-            <Image style={{width: (width/2)-1, height: (width/2)-1, margin: 1}} source={{uri: imgUri+this.state.data.driver.photo}}>
-            </Image>
-            <Text style={styles.userName}>{this.state.data.driver.userName}</Text>
-            <Text style={styles.body2}>{this.state.data.driver.userEmail}</Text>
-          </View>
+        <View style={{
+          backgroundColor: Styles.colors.lightGreen,
+          padding: 25,
+          borderRadius: 2,
+          marginTop: 30
+        }}>
+          <Text
+            style={Styles.components.h2}>{ this.props.data.tour.title }
+          </Text>
 
-          <View style={{flex: 1, flexDirection: 'column'}}>
-            <Text style={styles.body}>Your guide is</Text>
-            <Image style={{width: (width/2)-1, height: (width/2)-1, margin: 1}} source={{uri: imgUri+this.state.data.guide.photo}}>
-            </Image>
-            <Text style={styles.userName}>{this.state.data.guide.userName}</Text>
-            <Text style={styles.body2}>{this.state.data.guide.userEmail}</Text>
-          </View>
+          <Text style={Styles.components.body}>
+          You've booked
+          {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
+          for {this.props.data.info.date.toString()}
+          </Text>
         </View>
 
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          height: 120,
+          marginTop: 20
+        }}>
+          <View style={{
+            height: 220,
+            width: 150,
+            margin: 'auto'
+          }}>
+            <Text style={Styles.components.body}>Your driver is</Text>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }}>
+              <Image
+                style={{
+                  width: 100,
+                  height: 100,
+                  margin: 1,
+                  borderRadius: 50
+                }}
+                source={{
+                  uri: imgUri+this.state.data.driver.photo
+                }}>
+              </Image>
+            </View>
+            <Text style={Styles.components.userName}>{this.state.data.driver.userName}</Text>
+            <Text style={Styles.components.body2}>{this.state.data.driver.userEmail}</Text>
+          </View>
 
-        <Button onPress={() => {this.props.nav(2, {city: this.props.data.city, tour: this.props.data.tour})}} title="Back" />
+          <View style={{
+            height: 220,
+            width: 150,
+            margin: 'auto'
+          }}>
+            <Text style={Styles.components.body}>Your guide is</Text>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }}>
+              <Image
+                style={{
+                  width: 100,
+                  height: 100,
+                  margin: 1,
+                  borderRadius: 50
+                }}
+                source={{
+                  uri: imgUri+this.state.data.guide.photo
+                }}>
+              </Image>
+            </View>
+            <Text style={Styles.components.userName}>{this.state.data.guide.userName}</Text>
+            <Text style={Styles.components.body2}>{this.state.data.guide.userEmail}</Text>
+          </View>
+        </View>
+        <TouchableHighlight
+            onPress={() => {this.props.nav(2, {city: this.props.data.city, tour: this.props.data.tour})}}
+            style={Styles.components.buttonTransparent}
+          >
+            <View style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: 0
+            }}>
+              <Text style={{
+                color: Styles.colors.mainBlue,
+                fontSize: 20
+              }}>Go Back</Text>
+            </View>
+        </TouchableHighlight>
       </View>
     );
   }

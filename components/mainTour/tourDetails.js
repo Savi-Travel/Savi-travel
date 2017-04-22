@@ -1,6 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
-import { styles } from '../../styles/styles.js';
+import Styles from '../../styles/styles.js';
+import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
+import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 import {
   Text,
   Button,
@@ -8,6 +10,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableOpacity,
+  TouchableHighlight,
   TextInput,
   ScrollView,
   Picker
@@ -43,57 +47,144 @@ class TourDetails extends Component {
     let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     const {width, height} = Dimensions.get('window');
+    var _scrollView: ScrollView;
     return (
-      <View>
-        <ScrollView>
-          <TourInfo
-            data={this.props.data.tour}
-            dimensions={{width, height}}
-          />
+        <ScrollView ref={(scrollView) => { _scrollView = scrollView; }} >
+          <View style={{height: height}}>
+            <TourInfo
+              data={this.props.data.tour}
+              dimensions={{width, height}}
+            />
+            <TouchableHighlight
+              onPress={() => {_scrollView.scrollTo({y: height})}}
+              underlayColor={Styles.colors.almostWhite}
+              style={{
+                marginTop: 30,
+                height: 40,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <MaterialIcons name="arrow-drop-down-circle" size={45} color={Styles.colors.lightGreen} />
+            </TouchableHighlight>
+          </View>
 
-          <Button onPress={() => {this.props.nav(1, this.props.data.city)}} title="Back" />
-
-          <View style={styles.passengersCounter}>
-            <View style={{width: width * .7, alignItems: 'center'}}>
-              <Text style={{fontSize: 15}}>
-                Select Number of Passengers
+          <View style={{height: height}}>
+            <View style={{
+              marginBottom: 30,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{
+                fontSize: 30,
+                color: Styles.colors.lightGreen
+              }}> Last Details
               </Text>
             </View>
-            <View style={{width: width * .3}}>
-              <DisplayPicker
-                selectedValue={this.state.passengers}
-                onValueChange={(quantity) => this.setState({passengers: quantity})}
-              />
+            <View style={Styles.components.passengersCounter}>
+              <View style={Styles.components.counterInnerWrapper}>
+                <View style={{
+                  width: width * .7,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 50
+                }}>
+                  <Text style={{
+                    fontSize: 20,
+                    color: Styles.colors.lightGreen
+                  }}>
+                    Select Number of Passengers
+                  </Text>
+                </View>
+                <View style={{
+                  marginBottom: 30
+                }}>
+                  <DisplayPicker
+                    selectedValue={this.state.passengers}
+                    onValueChange={(quantity) => this.setState({passengers: quantity})}
+                  />
+                </View>
+              </View>
             </View>
+
+            <View style={{
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginLeft: 30,
+              marginRight: 30
+            }}>
+              <View>
+                <Text style={{
+                  fontSize: 20,
+                  fontFamily: Styles.fonts.mainFont,
+                  color: Styles.colors.lightGreen,
+                  marginTop: 20
+                }}>Select Tour Date
+                </Text>
+              </View>
+
+              <View>
+                <DatePicker
+                  style={{
+                    width: 300,
+                    padding: 20,
+                    marginTop: 40,
+                    marginRight: 30,
+                    marginLeft: 30
+                  }}
+                  date={this.state.date}
+                  mode="date"
+                  placeholder="placeholder"
+                  format="MM-DD-YYYY"
+                  minDate={this.state.date}
+                  maxDate={this.state.endDate}
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  onDateChange={this.onDateChange}
+                />
+              </View>
+            </View>
+
+            <TouchableHighlight
+              onPress={() => {this.props.nav(3, {
+                city: this.props.data.city,
+                tour: this.props.data.tour,
+                info: this.state
+              })}}
+              style={Styles.components.bookTourButton}
+            >
+              <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Text style={{
+                  color: Styles.colors.almostWhite,
+                  fontSize: 20
+                }}>Book this Tour</Text>
+              </View>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              onPress={() => {this.props.nav(1, this.props.data.city)}}
+              style={Styles.components.goBackButton}
+            >
+              <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Text style={{
+                  color: Styles.colors.mainBlue,
+                  fontSize: 20
+                }}>Go Back</Text>
+              </View>
+            </TouchableHighlight>
           </View>
-
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{margin: 15, fontSize: 15}}>Select Tour Date</Text>
-            <DatePicker
-              style={{width: 200}}
-              date={this.state.date}
-              mode="date"
-              placeholder="placeholder"
-              format="MM-DD-YYYY"
-              minDate={this.state.date}
-              maxDate={this.state.endDate}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              onDateChange={this.onDateChange}
-            />
-          </View>
-
-
-          <Button onPress={() => {this.props.nav(3, {
-            city: this.props.data.city,
-            tour: this.props.data.tour,
-            info: this.state
-          })}}
-            title="Book This Tour"
-          />
-
         </ScrollView>
-      </View>
     );
   }
 }
@@ -106,15 +197,21 @@ class TourInfo extends Component {
   }
 
   render() {
-    let port = 8080;
+    let port = 8084;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
-      <View style={{height: this.props.dimensions.height}}>
+      <View>
         <Image
           style={{width: this.props.dimensions.width, height: this.props.dimensions.height / 2}}
           source={{uri: imgUri+this.props.data.mainImage}}/>
-        <Text style={styles.locationPage}>{this.props.data.title}</Text>
-        <Text style={styles.bodyText}>{this.props.data.description}</Text>
+        <Text style={[
+          Styles.components.locationPage,
+          Styles.components.textColor
+        ]}>{this.props.data.title}</Text>
+        <Text style={[
+          Styles.components.bodyText,
+          Styles.components.textColor
+        ]}>{this.props.data.description}</Text>
       </View>
     );
   }
@@ -128,10 +225,13 @@ class DisplayPicker extends Component {
   render() {
     return (
       <Picker
-        style={styles.displayPicker}
+        style={{
+
+        }}
+        itemStyle={{color:'blue'}}
         selectedValue={this.props.selectedValue}
         onValueChange={this.props.onValueChange}>
-        <Picker.Item label="1" value="1" />
+        <Picker.Item color="green" label="1" value="1" />
         <Picker.Item label="2" value="2" />
         <Picker.Item label="3" value="3" />
         <Picker.Item label="4" value="4" />
