@@ -5,12 +5,13 @@ import {
   View,
   Image,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 
 let styles = StyleSheet.create({
-  container: {
+  registerContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -37,6 +38,11 @@ let styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  container: {
+    backgroundColor: '#F5FCFF',
+    flex: 1,
+    paddingTop: 25
+  },
   autocompleteContainer: {
     flex: 1,
     left: 0,
@@ -44,6 +50,10 @@ let styles = StyleSheet.create({
     right: 0,
     top: 0,
     zIndex: 1
+  },
+  itemText: {
+    fontSize: 15,
+    margin: 2
   }
 });
 
@@ -61,35 +71,36 @@ class RegisterUser extends Component {
   }
 
   createUser(userInput) {
-    let userInfo = {
-      // userId: this.props.data.identities[0].userId,
-      profileData: {
-        name: this.props.data.name,
-        email: this.props.data.email,
-        phone: this.state.mdn,
-        city: this.state.city,
-        country: this.state.country,
-        photo: this.props.data.picture,
-        // add languages from input
-        // need to determine what input is coming in
-        languages: []
-      }
-    };
+    // let userInfo = {
+    //   // userId: this.props.data.identities[0].userId,
+    //   profileData: {
+    //     name: this.props.data.name,
+    //     email: this.props.data.email,
+    //     phone: this.state.mdn,
+    //     city: this.state.city,
+    //     country: this.state.country,
+    //     photo: this.props.data.picture,
+    //     // add languages from input
+    //     // need to determine what input is coming in
+    //     languages: []
+    //   }
+    // };
     // set conditional for required info
     // POST request to backend
     // clear state
-    this.setState({
-      mdn: '',
-      country: '',
-      city: '',
-      languages: []
-    });
+    // this.setState({
+    //   mdn: '',
+    //   country: '',
+    //   city: '',
+    //   languages: []
+    // });
+    console.log('create user: ', this.state.country);
   }
 
   render() {
-    console.log('Auth stuff: ', this.props.data);
+    // console.log('Auth stuff: ', this.props.data);
     return (
-      <View style={styles.container}>
+      <View style={styles.registerContainer}>
         <Text style={styles.register}>Registration</Text>
         <View>
           <TextInput
@@ -100,13 +111,7 @@ class RegisterUser extends Component {
             value={this.state.mdn}
             onChangeText={mdn => this.setState({mdn})}
           />
-          <TextInput
-            style={styles.inputBox}
-            placeholder='City'
-            maxLength={50}
-            value={this.state.city}
-            onChangeText={city => this.setState({city})}
-          />
+          <CitySelector />
            <TextInput
             style={styles.inputBox}
             placeholder='Country'
@@ -146,39 +151,51 @@ class CitySelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      city: ''
+      locations: [],
+      city: '',
+      query: ''
     };
   }
 
   componentWillMount() {
     fetch('https://savi-travel.com:8080/api/cities')
       .then(resp => resp.json())
-      .then(data => this.setState({data}))
+      .then(data => this.setState({locations: data}))
       .catch(err => console.error(err));
+  }
+
+  findCity (query) {
+    if (query === '') {
+      return [];
+    }
+
+    const { locations } = this.state;
+    const regex = new RegExp(`${query.trim()}`, 'i');
+    return locations.filter(location => location.name.search(regex) >= 0);
   }
 
   render() {
     const { query } = this.state;
-    const data = this._filterData(query)
-    return(
-      <View>
-        <View style={styles.autocompleteContainer}>
-          <Autocomplete
-            data={data}
-            defaultValue={query}
-            onChangeText={text => this.setState({ query: text })}
-            renderItem={data => (
-              <TouchableOpacity onPress={() => this.setState({ query: data })}>
-                <Text>{data}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        <View>
-          <Text>Some content</Text>
-        <View />
-      <View>
+    const cities = this.findCity(query);
+    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
+
+    return (
+      <View style={styles.container}>
+        <Autocomplete
+          autoCapitalize='none'
+          autoCorrect={false}
+          containerStyle={styles.autocompleteContainer}
+          data={cities.length === 1 && comp(query, cities[0].name) ? [] : cities}
+          defaultValue={query}
+          onChangeText={text => this.setState({ query: text })}
+          placeholder='City'
+          renderItem={({ name }) => (
+            <TouchableOpacity onPress={() => this.setState({ query: name })}>
+              <Text style={styles.itemText}>{name}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     );
   }
 }
