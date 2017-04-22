@@ -6,7 +6,8 @@ import {
   Image,
   TouchableHighlight,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 
@@ -41,14 +42,14 @@ let styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FCFF',
     flex: 1,
-    paddingTop: 25
+    // paddingTop: 25
   },
   autocompleteContainer: {
     flex: 1,
     left: 0,
     position: 'absolute',
     right: 0,
-    top: 0,
+    top: 50,
     zIndex: 1
   },
   itemText: {
@@ -94,11 +95,17 @@ class RegisterUser extends Component {
     //   city: '',
     //   languages: []
     // });
-    console.log('create user: ', this.state.country);
+    console.log('create user: ', this.state.country, this.state.city);
+  }
+
+  handleCity(city) {
+    console.log('register city: ', city);
+    this.setState({ city });
   }
 
   render() {
     // console.log('Auth stuff: ', this.props.data);
+    const {width, height} = Dimensions.get('window');
     return (
       <View style={styles.registerContainer}>
         <Text style={styles.register}>Registration</Text>
@@ -111,7 +118,9 @@ class RegisterUser extends Component {
             value={this.state.mdn}
             onChangeText={mdn => this.setState({mdn})}
           />
-          <CitySelector />
+          <View style={{height: height / 5}}>
+            <CitySelector regCity={this.handleCity.bind(this)}/>
+          </View>
            <TextInput
             style={styles.inputBox}
             placeholder='Country'
@@ -187,10 +196,16 @@ class CitySelector extends Component {
           containerStyle={styles.autocompleteContainer}
           data={cities.length === 1 && comp(query, cities[0].name) ? [] : cities}
           defaultValue={query}
-          onChangeText={text => this.setState({ query: text })}
+          onChangeText={text => {
+            this.props.regCity(text);
+            this.setState({ query: text });
+          }}
           placeholder='City'
           renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => this.setState({ query: name })}>
+            <TouchableOpacity onPress={() => {
+              this.props.regCity(name);
+              this.setState({ query: name });
+            }}>
               <Text style={styles.itemText}>{name}</Text>
             </TouchableOpacity>
           )}
