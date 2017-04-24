@@ -104,10 +104,10 @@ class RegisterUser extends Component {
     // format country for USA
     let country = formatSpelling(this.state.country);
     // format city
-    let city = formatSpelling(this.state.city);
+    let city = formatCity(this.state.city);
     // format language
     let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
-    console.log('format language: ', languages);
+    console.log('format city: ', city);
       // use helper function passing in primary and others
   }
 
@@ -290,4 +290,8 @@ var formatLanguages = function(primary, others) {
     allLanguages = [...allLanguages, formattedLanguage];
   }
   return allLanguages;
+};
+
+var formatCity = function(city) {
+
 };
