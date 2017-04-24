@@ -278,5 +278,16 @@ var formatSpelling = function(input) {
 };
 
 var formatLanguages = function(primary, others) {
-  // split by commas
+  // primary
+  let firstChar = primary.charAt().toUpperCase();
+  let formattedPrimary = primary.toLowerCase().replace(/\w/, firstChar);
+  let allLanguages = [formattedPrimary];
+  // others
+  let languageCollection = others.split(', ');
+  for (let i = 0; i < languageCollection.length; i++) {
+    let firstChar = languageCollection[i].charAt().toUpperCase();
+    let formattedLanguage = languageCollection[i].toLowerCase().replace(/\w/, firstChar);
+    allLanguages = [...allLanguages, formattedLanguage];
+  }
+  return allLanguages;
 };
