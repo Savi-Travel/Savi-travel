@@ -105,8 +105,9 @@ class RegisterUser extends Component {
     let country = formatSpelling(this.state.country);
     // format city
     let city = formatSpelling(this.state.city);
-    console.log('creating country: ', country);
     // format language
+    let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
+    console.log('format language: ', languages);
       // use helper function passing in primary and others
   }
 
@@ -170,15 +171,15 @@ class RegisterUser extends Component {
               style={styles.inputBox}
               placeholder='Primary Language'
               maxLength={25}
-              value={this.state.languages}
-              onChangeText={languages => this.setState({languages})}
+              value={this.state.primary}
+              onChangeText={primary => this.setState({primary})}
             />
              <TextInput
               style={styles.inputBox}
               placeholder='Language(s), e.g. English, Spanish, ...'
-              maxLength={25}
-              value={this.state.languages}
-              onChangeText={languages => this.setState({languages})}
+              maxLength={150}
+              value={this.state.otherLanguage}
+              onChangeText={otherLanguage => this.setState({otherLanguage})}
             />
             <View style={{height: 40}}>
               <CitySelector regCity={this.handleCity.bind(this)}/>
