@@ -101,10 +101,18 @@ class RegisterUser extends Component {
     //   languages: []
     // });
     console.log('create user: ', this.state.mdn, this.state.city);
+    // format country for USA
+    let country = formatSpelling(this.state.country);
+    // format city
+    let city = formatSpelling(this.state.city);
+    console.log('creating country: ', country);
+    // format language
+      // use helper function passing in primary and others
   }
 
   handleCity(city) {
     console.log('register city: ', city);
+    // format city
     this.setState({ city });
   }
 
@@ -257,3 +265,17 @@ export { RegisterUser };
 
 // helper functions
 // after registration redirect to page 6
+
+var formatSpelling = function(input) {
+  let regex = new RegExp('USA', 'i');
+  if (input.search(regex) >= 0) {
+    return 'USA';
+  }
+  let firstChar = input.charAt().toUpperCase();
+  let formattedInput = input.toLowerCase().replace(/\w/, firstChar);
+  return formattedInput;
+};
+
+var formatLanguages = function(primary, others) {
+  // split by commas
+};
