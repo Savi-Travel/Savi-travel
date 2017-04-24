@@ -293,5 +293,16 @@ var formatLanguages = function(primary, others) {
 };
 
 var formatCity = function(city) {
-
+  let cityFormatted = [];
+  let cityBreakdown = city.split(' ');
+  for (let i = 0; i < cityBreakdown.length; i++) {
+    let firstChar = cityBreakdown[i].charAt().toUpperCase();
+    let formattedWord = cityBreakdown[i].toLowerCase().replace(/\w/, firstChar);
+    cityFormatted = [...cityFormatted, formattedWord];
+  }
+  if (cityFormatted.join(' ') === 'Rio De Janeiro') {
+    return 'Rio de Janeiro';
+  } else {
+    return cityFormatted.join(' ');
+  }
 };
