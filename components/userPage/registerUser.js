@@ -60,6 +60,11 @@ let styles = StyleSheet.create({
   itemText: {
     fontSize: 15,
     margin: 2
+  },
+  missingText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'red'
   }
 });
 
@@ -72,52 +77,74 @@ class RegisterUser extends Component {
       city: '',
       primary: '',
       otherLanguage: '',
-      complete: false
+      complete: true
     });
   }
 
   createUser(userInput) {
-    let userInfo = {
-      // userId: this.props.data.identities[0].userId,
-      profileData: {
-        name: this.props.data.name,
-        email: this.props.data.email,
-        phone: this.state.mdn,
-        city: this.state.city,
-        country: this.state.country,
-        photo: this.props.data.picture,
-        // add languages from input
-        // need to determine what input is coming in
-        languages: []
-      }
-    };
-    // set conditional for required info
-    // POST request to backend
-    // clear state
-    // this.setState({
-    //   mdn: '',
-    //   country: '',
-    //   city: '',
-    //   languages: []
-    // });
+    this.setState({complete: true});
     // format country for USA
     let country = formatSpelling(this.state.country);
     // format city
     let city = formatCity(this.state.city);
     // format language
     let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
-    console.log('format city: ', city);
-      // use helper function passing in primary and others
+    // info to post
+    let userInfo = {
+      // userId: this.props.data.identities[0].userId,
+      profileData: {
+        // name: this.props.data.name,
+        // email: this.props.data.email,
+        phone: this.state.mdn,
+        city,
+        country,
+        // photo: this.props.data.picture,
+        languages
+      }
+    };
+    // set conditional for required info
+    if (userInfo.profileData.phone === '' || userInfo.profileData.city === '' || userInfo.profileData.country === '' || userInfo.profileData.languages === '') {
+      this.setState({complete: false});
+    } else {
+      // POST request to backend
+      fetch('https://savi-travel.com:8080/api/users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userInfo)
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          this.props.nav(6, data);
+        })
+        .catch(err => console.error(err));
+      // clear state
+      // this.setState({
+      //   mdn: '',
+      //   country: '',
+      //   city: '',
+      //   primary: '',
+      //   otherLanguage: ''
+      // });
+    }
   }
 
   handleCity(city) {
-    console.log('register city: ', city);
-    // format city
     this.setState({ city });
   }
 
+  missingInfo() {
+    if (!this.state.complete) {
+      return (
+        <Text style={styles.missingText}>Please fill out all sections</Text>
+      );
+    } else {
+      return null;
+    }
+  }
   render() {
-    // console.log('Auth stuff: ', this.props.data);
     const {width, height} = Dimensions.get('window');
     return (
       <View style={styles.registerContainer}>
@@ -186,7 +213,7 @@ class RegisterUser extends Component {
           </View>
         </View>
         <View style={{marginTop: 20}}>
-          <Text>Phone number format here: {this.state.mdn}</Text>
+          {this.missingInfo()}
         </View>
         <View style={{marginBottom: 10}}>
           <TouchableHighlight
@@ -264,7 +291,6 @@ class CitySelector extends Component {
 export { RegisterUser };
 
 // helper functions
-// after registration redirect to page 6
 
 var formatSpelling = function(input) {
   let regex = new RegExp('USA', 'i');

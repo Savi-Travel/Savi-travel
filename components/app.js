@@ -90,6 +90,7 @@ class App extends Component {
       {page: <UserProfile
               nav={this.changePage.bind(this)}
               data={this.state.profile}
+              info={this.state.data}
               />, index: 6}
     ];
     return (

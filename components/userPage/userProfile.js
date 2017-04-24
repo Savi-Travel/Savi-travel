@@ -54,6 +54,7 @@ class UserProfile extends Component {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
+    // **** change image source to this.props.info.photo and format to standard
     let image = {
       uri: this.props.data.picture
     };
