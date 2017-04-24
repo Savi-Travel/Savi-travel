@@ -72,25 +72,25 @@ class RegisterUser extends Component {
       city: '',
       primary: '',
       otherLanguage: '',
-      complete: true
+      complete: false
     });
   }
 
   createUser(userInput) {
-    // let userInfo = {
-    //   // userId: this.props.data.identities[0].userId,
-    //   profileData: {
-    //     name: this.props.data.name,
-    //     email: this.props.data.email,
-    //     phone: this.state.mdn,
-    //     city: this.state.city,
-    //     country: this.state.country,
-    //     photo: this.props.data.picture,
-    //     // add languages from input
-    //     // need to determine what input is coming in
-    //     languages: []
-    //   }
-    // };
+    let userInfo = {
+      // userId: this.props.data.identities[0].userId,
+      profileData: {
+        name: this.props.data.name,
+        email: this.props.data.email,
+        phone: this.state.mdn,
+        city: this.state.city,
+        country: this.state.country,
+        photo: this.props.data.picture,
+        // add languages from input
+        // need to determine what input is coming in
+        languages: []
+      }
+    };
     // set conditional for required info
     // POST request to backend
     // clear state
@@ -100,7 +100,6 @@ class RegisterUser extends Component {
     //   city: '',
     //   languages: []
     // });
-    console.log('create user: ', this.state.mdn, this.state.city);
     // format country for USA
     let country = formatSpelling(this.state.country);
     // format city
