@@ -10,14 +10,14 @@ import credentials from '../../auth0-credentials';
 
 let STORAGE_KEY = 'id_token';
 
-let testToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Zub3AuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAzMjMzOTk1NzY4MDM0MDQ5NDA4IiwiYXVkIjoibWhjSGVmNXZRMUpmSVRrdDF0U1dCc1FhazhSS3lJbnUiLCJleHAiOjE0OTMxODQyNjksImlhdCI6MTQ5MzE0ODI2OX0.9nHqqN-mrKv7-50bxG6aBcAoVs_QzXbN0Cl2r4hCyT8';
+let testToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Zub3AuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAzMjMzOTk1NzY4MDM0MDQ5NDA4IiwiYXVkIjoibWhjSGVmNXZRMUpmSVRrdDF0U1dCc1FhazhSS3lJbnUiLCJleHAiOjE0OTMxOTU3OTEsImlhdCI6MTQ5MzE1OTc5MX0.5_s7yfmGrf4Pzg8CNJ_qm6EnQTtJweE67PUW_nrLrd4';
 
 class InitialOpen extends Component {
   constructor(props) {
     super(props);
+    this.profile = '';
   }
 
-  // component will mount to get token from storage
   componentWillMount() {
     // this.setToken();
     this.getToken();
@@ -40,22 +40,57 @@ class InitialOpen extends Component {
             id_token: resp
           })
         })
-          .then(resp => resp.json())
+          .then(resp => {
+            // console.log('expected fail: ', resp.status);
+            if (resp.status === 401) {
+              // expired token - redirect to login page
+              return this.props.nav(4);
+            }
+            return resp.json();
+          })
           .then(data => {
             if (data === null) {
-              // route to welcome page
+              // route to login page
               this.props.nav(4);
             } else {
-              // route to user profile page
-                let info = {
-              page: 6,
-              logged: true,
-              profile,
-              token
-            };
-            this.props.log(info);
+              // check if user exists
+              this.profile = data;
+                fetch('https://savi-travel.com:8080/api/users', {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  // dynamic user id
+                  // body: JSON.stringify({ userId: data.identities[0].userId })
+                  // testing for existing users
+                  body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+                })
+                  .then(resp => resp.json())
+                  .then(data => {
+                    if (data.exists === false) {
+                      let info = {
+                        page: 5,
+                        logged: true,
+                        // need profile to send to registration
+                        profile: this.profile,
+                        token: true
+                      };
+                      console.log('False page data: ', data);
+                      // this.props.log(info);
+                    } else {
+                      let info = {
+                        page: 6,
+                        logged: true,
+                        profile: this.profile,
+                        token: true
+                      };
+                      // this.props.log(info);
+                      console.log('True page data: ', data, 'testing: ', this.profile);
+                    }
+                  })
+                  .catch(err => console.error(err));
             }
-            console.log('auth0 resp: ', data);
           })
       })
       .catch(err => console.error(err));
