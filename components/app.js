@@ -13,13 +13,15 @@ import { ReviewOrder } from './mainTour/reviewOrder';
 import { WelcomeView } from './welcome';
 import { RegisterUser } from './userPage/registerUser';
 import { UserProfile } from './userPage/userProfile';
+import { InitialOpen } from './initialPage/initialOpen';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentPage: 0,
+      currentPage: 7,
+      init: false,
       logged: false,
       profile: '',
       token: '',
@@ -32,11 +34,13 @@ class App extends Component {
   componentWillMount() {
     // initial component
 
-    if (this.state.logged === false) {
-      // changing page 4 to page 5
-      // for registration page testing
-      this.setState({ currentPage: 4 });
-    }
+    // TBD - keep below or not
+      // route from Initial Open page?
+    // if (this.state.logged === false) {
+    //   // changing page 4 to page 5
+    //   // for registration page testing
+    //   this.setState({ currentPage: 4 });
+    // }
   }
 
   changePage(pageId, data, paymentInfo) {
@@ -93,7 +97,11 @@ class App extends Component {
               nav={this.changePage.bind(this)}
               data={this.state.profile}
               info={this.state.data}
-              />, index: 6}
+              />, index: 6},
+      {page: <InitialOpen
+              nav={this.changePage.bind(this)}
+              log={this.login.bind(this)}
+              />, index: 7}
     ];
     return (
       <Navigator

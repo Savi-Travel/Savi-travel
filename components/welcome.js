@@ -48,7 +48,8 @@ class WelcomeView extends Component {
               profile,
               token
             };
-            this.props.log(info);
+            console.log('profile: ', profile, 'token: ', token);
+            // this.props.log(info);
           } else {
             let info = {
               page: 6,
