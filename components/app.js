@@ -30,10 +30,12 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // initial component
+
     if (this.state.logged === false) {
       // changing page 4 to page 5
       // for registration page testing
-      this.setState({ currentPage: 5 });
+      this.setState({ currentPage: 4 });
     }
   }
 
