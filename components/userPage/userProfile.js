@@ -12,11 +12,6 @@ import UserAvatar from 'react-native-user-avatar';
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // flexDirection: 'column',
-    // backgroundColor: 'white',
-    // height,
-    // width
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -83,8 +78,9 @@ class UserProfile extends Component {
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={styles.container}>
-
-        <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
+        <View style={{marginTop: 20}}>
+          <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
+        </View>
         <Text
           style={styles.textContent}
         >
