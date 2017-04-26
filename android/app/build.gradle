@@ -1,7 +1,5 @@
 apply plugin: "com.android.application"
-project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Name of the font files you want to copy
-]
+
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
@@ -134,6 +132,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-vector-icons')
     compile project(':react-native-lock')
     compile fileTree(dir: "libs", include: ["*.jar"])

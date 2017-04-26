@@ -22,7 +22,8 @@ class App extends Component {
       profile: '',
       token: '',
       initialPage: 0,
-      data: ''
+      data: '',
+      paymentInfo: ''
     };
   }
 
@@ -32,7 +33,13 @@ class App extends Component {
     }
   }
 
-  changePage(pageId, data) {
+  changePage(pageId, data, paymentInfo) {
+    if(paymentInfo !== undefined) {
+      this.setState({
+        paymentInfo
+      });
+    }
+
     if (data !== undefined) {
       this.setState({
         currentPage: pageId,
@@ -68,6 +75,7 @@ class App extends Component {
       {page: <ReviewOrder
               nav={this.changePage.bind(this)}
               data={this.state.data}
+              paymentInfo={this.state.paymentInfo}
               />, index: 3},
       {page: <WelcomeView log={this.login.bind(this)}/>, index: 4}
     ];
