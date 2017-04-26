@@ -35,7 +35,7 @@ class ReviewOrder extends Component {
       stripeRequest: '',
       paymentInfo: '',
       paymentReady: false
-    }
+    };
   }
 
   componentWillMount() {
@@ -48,11 +48,11 @@ class ReviewOrder extends Component {
     })
     .then(resp => resp.json())
       .then(data => {
-        console.log('success..', data)
+        console.log('success..', data);
         if(data) {
           this.setState({
             stripeRequest: data
-          })
+          });
         }
         fetch('https://savi-travel.com:8084/payments', {
           method: 'POST',
@@ -71,7 +71,7 @@ class ReviewOrder extends Component {
               .catch(err => console.error(err));
               this.setState({
                 paymentReady: true
-              })
+              });
             }
           }.bind(this)).catch(err => console.error(err));
       })

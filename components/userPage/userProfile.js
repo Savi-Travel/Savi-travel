@@ -11,11 +11,16 @@ import {
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
   container: {
+    // flex: 1,
+    // flexDirection: 'column',
+    // backgroundColor: 'white',
+    // height,
+    // width
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'space-between',
     backgroundColor: 'white',
-    height,
-    width
+    alignItems: 'flex-start'
   },
   profilePic: {
     width: width / 2,
@@ -38,6 +43,8 @@ let styles = StyleSheet.create({
   }
 });
 
+let port = 8080;
+
 class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -50,19 +57,26 @@ class UserProfile extends Component {
     console.log('user data: ', this.props.data);
   }
 
+  _bookingsByType(userType) {
+    // employee
+    if (userType === 'Tour Guide' || userType === 'Driver') {
+      // return bookings for employee
+      // fetch(`https://savi-travel.com:${port}/api/bookings?userId=this.props.data.userAuthId`)
+      //   .then(resp => resp.json())
+      //   .then(data => console.log('booking data: ', data))
+      //   .catch(err => console.error(err));
+    }
+    // return bookings for tourist
+  }
+
+
+
   render() {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
-    // **** change image source to this.props.info.photo and format to standard
-    // let image = {
-    //   uri: this.props.data.picture
-    // };
 
-    // need this
-    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
-    // <Image source={{uri: imgUri + nameOfImage}}
     return (
       <View style={styles.container}>
         <Image
@@ -75,7 +89,8 @@ class UserProfile extends Component {
         Hello {this.props.data.userName.split(/ /)[0]},
         </Text>
         <Text style={styles.textContent}>You have no booked tours.</Text>
-        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
+
+        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', alignSelf: 'center'}}>
           <TouchableHighlight
             style={styles.browseButon}
             underlayColor='#949494'

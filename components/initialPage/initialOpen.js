@@ -62,9 +62,9 @@ class InitialOpen extends Component {
                     'Content-Type': 'application/json'
                   },
                   // dynamic user id
-                  body: JSON.stringify({ userId: data.identities[0].userId })
+                  // body: JSON.stringify({ userId: data.identities[0].userId })
                   // testing for existing users
-                  // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+                  body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
                 })
                   .then(resp => resp.json())
                   .then(data => {
@@ -80,7 +80,7 @@ class InitialOpen extends Component {
                       this.props.log(info);
                     } else {
                       this.props.nav(6, data.user);
-                      console.log('True page data: ', data, 'testing: ', this.profile);
+                      // console.log('True page data: ', data, 'testing: ', this.profile);
                     }
                   })
                   .catch(err => console.error(err));
@@ -99,6 +99,7 @@ class InitialOpen extends Component {
   }
 
   render() {
+    // **replace text with animated spinner**
     return (
       <Text>Initial Open Page</Text>
     )
