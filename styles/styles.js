@@ -7,6 +7,7 @@ const fonts = {
 }
 
 const colors = {
+  dark: '#2C3E50',
   mainBlue: '#003171',
   jordyBlue: '#89C4F4',
   almostWhite: '#ecf0f1',
@@ -210,6 +211,15 @@ const components = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.middleBlue,
     fontFamily: fonts.mainFont
+  },
+
+  cardInputs: {
+    height: 40,
+    borderColor: colors.almostWhite,
+    marginTop: 10,
+    backgroundColor: colors.almostWhite,
+    borderRadius: 5,
+    paddingLeft: 10
   }
 });
 
