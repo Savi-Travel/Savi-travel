@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import Auth0Lock from 'react-native-lock';
@@ -13,6 +14,8 @@ import Auth0Lock from 'react-native-lock';
 import credentials from '../auth0-credentials';
 
 let lock = new Auth0Lock(credentials);
+
+let STORAGE_KEY = 'id_token';
 
 class WelcomeView extends Component {
   constructor(props) {
@@ -27,14 +30,46 @@ class WelcomeView extends Component {
         console.log(err);
         return;
       }
-      let test = {
-        page: 0,
-        logged: true,
-        profile,
-        token
-      };
-      this.props.log(test);
+      this.setToken(token.idToken);
+      // check if user exists
+      fetch('https://savi-travel.com:8080/api/users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        // dynamic user id
+        body: JSON.stringify({ userId: profile.identities[0].userId })
+        // testing for existing users
+        // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.exists === false) {
+            let info = {
+              page: 5,
+              logged: true,
+              profile,
+              token
+            };
+            console.log('profile: ', profile, 'token: ', token);
+            this.props.log(info);
+          } else {
+            this.props.nav(6, data.user);
+          }
+        })
+        .catch(err => console.error(err));
+        // if user does not exist, send to page 5 (registration)
+        // if user exist, send to page 6 (user profile)
     });
+  }
+
+  async setToken(token) {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, token);
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
   }
 
   render() {

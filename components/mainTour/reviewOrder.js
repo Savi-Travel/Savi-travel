@@ -35,7 +35,7 @@ class ReviewOrder extends Component {
       stripeRequest: '',
       paymentInfo: '',
       paymentReady: false
-    }
+    };
   }
 
   componentWillMount() {
@@ -48,11 +48,11 @@ class ReviewOrder extends Component {
     })
     .then(resp => resp.json())
       .then(data => {
-        console.log('success..', data)
+        console.log('success..', data);
         if(data) {
           this.setState({
             stripeRequest: data
-          })
+          });
         }
         fetch('https://savi-travel.com:8084/payments', {
           method: 'POST',
@@ -71,7 +71,7 @@ class ReviewOrder extends Component {
               .catch(err => console.error(err));
               this.setState({
                 paymentReady: true
-              })
+              });
             }
           }.bind(this)).catch(err => console.error(err));
       })
@@ -92,6 +92,7 @@ class ReviewOrder extends Component {
   */
 
   render() {
+    console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date);
     let {width, height} = Dimensions.get('window');
     let port = 8084;
     let imgUri = `https://savi-travel.com:8084/api/images/`;

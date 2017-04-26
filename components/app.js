@@ -11,14 +11,17 @@ import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
 import { ReviewOrder } from './mainTour/reviewOrder';
 import { WelcomeView } from './welcome';
+import { RegisterUser } from './userPage/registerUser';
+import { UserProfile } from './userPage/userProfile';
+import { InitialOpen } from './initialPage/initialOpen';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentPage: 0,
-      logged: true,
+      currentPage: 7,
+      logged: false,
       profile: '',
       token: '',
       initialPage: 0,
@@ -28,13 +31,19 @@ class App extends Component {
   }
 
   componentWillMount() {
-    if (this.state.logged === false) {
-      this.setState({ currentPage: 4 });
-    }
+    // initial component
+
+    // TBD - keep below or not
+      // route from Initial Open page?
+    // if (this.state.logged === false) {
+    //   // changing page 4 to page 5
+    //   // for registration page testing
+    //   this.setState({ currentPage: 4 });
+    // }
   }
 
   changePage(pageId, data, paymentInfo) {
-    if(paymentInfo !== undefined) {
+    if (paymentInfo !== undefined) {
       this.setState({
         paymentInfo
       });
@@ -59,6 +68,7 @@ class App extends Component {
       profile: info.profile,
       token: info.token
     });
+    // add POST request to backend
   }
 
   render() {
@@ -77,7 +87,22 @@ class App extends Component {
               data={this.state.data}
               paymentInfo={this.state.paymentInfo}
               />, index: 3},
-      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4}
+      {page: <WelcomeView
+              log={this.login.bind(this)}
+              nav={this.changePage.bind(this)}
+              />, index: 4},
+      {page: <RegisterUser
+              nav={this.changePage.bind(this)}
+              data={this.state.profile}
+              />, index: 5},
+      {page: <UserProfile
+              nav={this.changePage.bind(this)}
+              data={this.state.data}
+              />, index: 6},
+      {page: <InitialOpen
+              nav={this.changePage.bind(this)}
+              log={this.login.bind(this)}
+              />, index: 7}
     ];
     return (
       <Navigator
@@ -93,3 +118,4 @@ class App extends Component {
 }
 
 export default App;
+
