@@ -49,19 +49,19 @@ class UserProfile extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('user data: ', this.props.data);
-  }
+  // componentDidMount() {
+  //   console.log('user data: ', this.props.data);
+  // }
 
   _bookingsByType(userType) {
     // employee
-    if (userType === 'Tour Guide' || userType === 'Driver') {
+    // if (userType === 'Tour Guide' || userType === 'Driver') {
       // return bookings for employee
       // fetch(`https://savi-travel.com:${port}/api/bookings?userId=this.props.data.userAuthId`)
       //   .then(resp => resp.json())
       //   .then(data => console.log('booking data: ', data))
       //   .catch(err => console.error(err));
-    }
+    // }
     // return bookings for tourist
   }
 

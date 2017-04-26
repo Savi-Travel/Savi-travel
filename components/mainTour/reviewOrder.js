@@ -92,6 +92,7 @@ class ReviewOrder extends Component {
   */
 
   render() {
+    console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date);
     let {width, height} = Dimensions.get('window');
     let port = 8084;
     let imgUri = `https://savi-travel.com:8084/api/images/`;

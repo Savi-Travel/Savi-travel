@@ -39,9 +39,9 @@ class WelcomeView extends Component {
           'Content-Type': 'application/json'
         },
         // dynamic user id
-        // body: JSON.stringify({ userId: profile.identities[0].userId })
+        body: JSON.stringify({ userId: profile.identities[0].userId })
         // testing for existing users
-        body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+        // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
       })
         .then(resp => resp.json())
         .then(data => {
@@ -60,7 +60,6 @@ class WelcomeView extends Component {
         })
         .catch(err => console.error(err));
         // if user does not exist, send to page 5 (registration)
-        // no token needed for now (delete if decision is final)
         // if user exist, send to page 6 (user profile)
     });
   }

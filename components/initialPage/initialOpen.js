@@ -10,7 +10,8 @@ import credentials from '../../auth0-credentials';
 
 let STORAGE_KEY = 'id_token';
 
-let testToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Zub3AuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAzMjMzOTk1NzY4MDM0MDQ5NDA4IiwiYXVkIjoibWhjSGVmNXZRMUpmSVRrdDF0U1dCc1FhazhSS3lJbnUiLCJleHAiOjE0OTMxOTU3OTEsImlhdCI6MTQ5MzE1OTc5MX0.5_s7yfmGrf4Pzg8CNJ_qm6EnQTtJweE67PUW_nrLrd4';
+// for testing
+// let testToken = 'id token from Auth0';
 
 class InitialOpen extends Component {
   constructor(props) {
@@ -21,12 +22,11 @@ class InitialOpen extends Component {
   componentWillMount() {
     // this.setToken();
     this.getToken();
-    // console.log('token: ', token);
   }
   // function to get token from storage
   async getToken() {
     await AsyncStorage.getItem(STORAGE_KEY)
-      // if token is null, then route to welcome
+      // if token is null, then route to login
       // if not null, then post to Auth0 for token info
       .then(resp => {
         fetch(`https://${credentials.domain}/tokeninfo`, {
@@ -62,9 +62,9 @@ class InitialOpen extends Component {
                     'Content-Type': 'application/json'
                   },
                   // dynamic user id
-                  // body: JSON.stringify({ userId: data.identities[0].userId })
+                  body: JSON.stringify({ userId: data.identities[0].userId })
                   // testing for existing users
-                  body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+                  // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
                 })
                   .then(resp => resp.json())
                   .then(data => {
@@ -72,11 +72,10 @@ class InitialOpen extends Component {
                       let info = {
                         page: 5,
                         logged: true,
-                        // need profile to send to registration
                         profile: this.profile,
                         token: true
                       };
-                      console.log('False page data: ', data);
+                      // console.log('False page data: ', data);
                       this.props.log(info);
                     } else {
                       this.props.nav(6, data.user);
@@ -90,13 +89,14 @@ class InitialOpen extends Component {
       .catch(err => console.error(err));
   }
 
-  async setToken() {
-    try {
-      await AsyncStorage.setItem(STORAGE_KEY, testToken);
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
-    }
-  }
+  // For testing
+  // async setToken() {
+  //   try {
+  //     await AsyncStorage.setItem(STORAGE_KEY, testToken);
+  //   } catch (error) {
+  //     console.log('AsyncStorage error: ' + error.message);
+  //   }
+  // }
 
   render() {
     // **replace text with animated spinner**
