@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
+import UserAvatar from 'react-native-user-avatar';
 
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
@@ -75,14 +76,15 @@ class UserProfile extends Component {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
-
+      /*<Image
+        style={styles.profilePic}
+        source={{uri: imgUri + this.props.data.photo}}
+      />*/
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={styles.container}>
-        <Image
-          style={styles.profilePic}
-          source={{uri: imgUri + this.props.data.photo}}
-        />
+
+        <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
         <Text
           style={styles.textContent}
         >
