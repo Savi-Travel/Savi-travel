@@ -75,11 +75,11 @@ class InitialOpen extends Component {
                         profile: this.profile,
                         token: true
                       };
-                      // console.log('False page data: ', data);
+                      console.log('False page data: ', data);
                       this.props.log(info);
                     } else {
                       this.props.nav(6, data.user);
-                      // console.log('True page data: ', data, 'testing: ', this.profile);
+                      console.log('True page data: ', data, 'testing: ', this.profile);
                     }
                   })
                   .catch(err => console.error(err));
