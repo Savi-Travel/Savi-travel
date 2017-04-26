@@ -21,7 +21,6 @@ class App extends Component {
 
     this.state = {
       currentPage: 7,
-      init: false,
       logged: false,
       profile: '',
       token: '',
@@ -88,15 +87,17 @@ class App extends Component {
               data={this.state.data}
               paymentInfo={this.state.paymentInfo}
               />, index: 3},
-      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4},
+      {page: <WelcomeView
+              log={this.login.bind(this)}
+              nav={this.changePage.bind(this)}
+              />, index: 4},
       {page: <RegisterUser
               nav={this.changePage.bind(this)}
               data={this.state.profile}
               />, index: 5},
       {page: <UserProfile
               nav={this.changePage.bind(this)}
-              data={this.state.profile}
-              info={this.state.data}
+              data={this.state.data}
               />, index: 6},
       {page: <InitialOpen
               nav={this.changePage.bind(this)}

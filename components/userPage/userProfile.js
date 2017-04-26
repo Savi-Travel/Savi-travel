@@ -47,7 +47,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
+    console.log('user data: ', this.props.data);
   }
 
   render() {
@@ -55,13 +55,25 @@ class UserProfile extends Component {
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
     // **** change image source to this.props.info.photo and format to standard
-    let image = {
-      uri: this.props.data.picture
-    };
+    // let image = {
+    //   uri: this.props.data.picture
+    // };
+
+    // need this
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
+    // <Image source={{uri: imgUri + nameOfImage}}
     return (
       <View style={styles.container}>
-        <Image style={styles.profilePic} source={image} />
-        <Text style={styles.textContent}>Hello {this.props.data.name},</Text>
+        <Image
+          style={styles.profilePic}
+          source={{uri: imgUri + this.props.data.photo}}
+        />
+        <Text
+          style={styles.textContent}
+        >
+        Hello {this.props.data.userName.split(/ /)[0]},
+        </Text>
         <Text style={styles.textContent}>You have no booked tours.</Text>
         <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
           <TouchableHighlight

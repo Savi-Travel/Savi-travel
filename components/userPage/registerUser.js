@@ -117,7 +117,7 @@ class RegisterUser extends Component {
       })
         .then(resp => resp.json())
         .then(data => {
-          this.props.nav(6, data);
+          this.props.nav(6, data.user);
         })
         .catch(err => console.error(err));
       // clear state

@@ -62,9 +62,9 @@ class InitialOpen extends Component {
                     'Content-Type': 'application/json'
                   },
                   // dynamic user id
-                  // body: JSON.stringify({ userId: data.identities[0].userId })
+                  body: JSON.stringify({ userId: data.identities[0].userId })
                   // testing for existing users
-                  body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
+                  // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
                 })
                   .then(resp => resp.json())
                   .then(data => {
@@ -77,15 +77,9 @@ class InitialOpen extends Component {
                         token: true
                       };
                       console.log('False page data: ', data);
-                      // this.props.log(info);
+                      this.props.log(info);
                     } else {
-                      let info = {
-                        page: 6,
-                        logged: true,
-                        profile: this.profile,
-                        token: true
-                      };
-                      // this.props.log(info);
+                      this.props.nav(6, data.user);
                       console.log('True page data: ', data, 'testing: ', this.profile);
                     }
                   })
