@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Styles from '../styles/styles.js';
 import {
   Text,
   Button,
   View,
   Navigator
 } from 'react-native';
+import Styles from '../styles/styles.js';
 import { HomePage } from './mainTour/homePage';
 import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
