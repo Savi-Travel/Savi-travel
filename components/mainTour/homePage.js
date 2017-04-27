@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Styles from '../../styles/styles.js';
-import tour from '../../styles/toursList.js';
 
 import {
   Text,
@@ -12,6 +11,7 @@ import {
   TouchableHighlight,
   ScrollView
 } from 'react-native';
+import Styles from '../../styles/styles.js';
 
 let {width, height} = Dimensions.get('window');
 let port = 8080;
