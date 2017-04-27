@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -13,17 +12,24 @@ import Auth0Lock from 'react-native-lock';
 import credentials from '../auth0-credentials';
 let dimensions = Dimensions.get('window');
 let lock = new Auth0Lock(credentials);
-
 let STORAGE_KEY = 'id_token';
-
 let port = 8080;
 
 class WelcomeView extends Component {
   constructor(props) {
     super(props);
+    this.onLogin = this.onLogin.bind(this);
   }
 
-  _onLogin() {
+  async setToken(token) {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, token);
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  onLogin() {
     lock.show({
       closable: true,
     }, (err, profile, token) => {
@@ -53,7 +59,7 @@ class WelcomeView extends Component {
               profile,
               token
             };
-            console.log('profile: ', profile, 'token: ', token);
+            // console.log('profile: ', profile, 'token: ', token);
             this.props.log(info);
           } else {
             this.props.nav(6, data.user);
@@ -63,14 +69,6 @@ class WelcomeView extends Component {
         // if user does not exist, send to page 5 (registration)
         // if user exist, send to page 6 (user profile)
     });
-  }
-
-  async setToken(token) {
-    try {
-      await AsyncStorage.setItem(STORAGE_KEY, token);
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
-    }
   }
 
   render() {
@@ -85,8 +83,8 @@ class WelcomeView extends Component {
         </View>
         <TouchableHighlight
           style={Styles.components.signInButton}
-          underlayColor='#949494'
-          onPress={this._onLogin.bind(this)}>
+          underlayColor="#949494"
+          onPress={this.onLogin}>
           <Text>Log In</Text>
         </TouchableHighlight>
       </View>
