@@ -35,9 +35,9 @@ class HomePage extends Component {
       <View>
         <ScrollView>
           <Text style={Styles.home('logo')}>Savi Travel </Text>
-            {this.state.data.map((item, i) => {
+            {this.state.data.map(item => {
               return (
-                <View key={i}>
+                <View key={item.id}>
                   <TouchableHighlight
                     onPress={() => { this.props.nav(1, item); }}
                   >

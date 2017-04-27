@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../styles/styles.js';
 import {
   StyleSheet,
   Text,
@@ -9,9 +8,8 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native';
-
+import Styles from '../styles/styles.js';
 import Auth0Lock from 'react-native-lock';
-
 import credentials from '../auth0-credentials';
 let dimensions = Dimensions.get('window');
 let lock = new Auth0Lock(credentials);
