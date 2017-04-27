@@ -12,6 +12,8 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
+import Styles from '../../styles/styles.js';
+import Load from '../../node_modules/react-native-loading-gif';
 
 class ReviewOrder extends Component {
   constructor(props) {
