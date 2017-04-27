@@ -93,7 +93,7 @@ class UserProfile extends Component {
             style={styles.browseButon}
             underlayColor='#949494'
             onPress={() => {
-              this.props.nav(0);
+              this.props.nav(0, this.props.data);
             }}
           >
             <Text>Browse Tours</Text>

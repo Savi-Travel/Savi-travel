@@ -40,7 +40,7 @@ class WelcomeView extends Component {
           'Content-Type': 'application/json'
         },
         // dynamic user id
-        body: JSON.stringify({ userId: profile.identities[0].userId })
+        body: JSON.stringify({ userId: profile.identities[0].user_id })
         // testing for existing users
         // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
       })

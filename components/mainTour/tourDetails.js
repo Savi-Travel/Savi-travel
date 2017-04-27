@@ -56,10 +56,11 @@ class TourDetails extends Component {
   */
 
   render() {
-    let port = 8084;
+    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     const {width, height} = Dimensions.get('window');
     var _scrollView: ScrollView;
+    // console.log('props from tour details: ', this.props.info);
     return (
         <ScrollView ref={(scrollView) => { _scrollView = scrollView; }} >
           <View style={Styles.tourDetails('topView')}>
@@ -350,7 +351,7 @@ class TourInfo extends Component {
   }
 
   render() {
-    let port = 8084;
+    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>

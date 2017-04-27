@@ -55,6 +55,7 @@ class InitialOpen extends Component {
             } else {
               // check if user exists
               this.profile = data;
+              // console.log('PROFILE: ', this.profile);
                 fetch('https://savi-travel.com:8080/api/users', {
                   method: 'POST',
                   headers: {
@@ -62,7 +63,7 @@ class InitialOpen extends Component {
                     'Content-Type': 'application/json'
                   },
                   // dynamic user id
-                  body: JSON.stringify({ userId: data.identities[0].userId })
+                  body: JSON.stringify({ userId: data.identities[0].user_id })
                   // testing for existing users
                   // body: JSON.stringify({ userId: '0K5qrpZ5e9cYkMU5' })
                 })
@@ -75,7 +76,7 @@ class InitialOpen extends Component {
                         profile: this.profile,
                         token: true
                       };
-                      console.log('False page data: ', data);
+                      // console.log('False page data: ', data);
                       this.props.log(info);
                     } else {
                       this.props.nav(6, data.user);

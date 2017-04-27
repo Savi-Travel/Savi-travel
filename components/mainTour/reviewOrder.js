@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Styles from '../../styles/styles.js';
-import Load from "../../node_modules/react-native-loading-gif";
+import Load from '../../node_modules/react-native-loading-gif';
 
 import {
   Text,
@@ -54,7 +54,7 @@ class ReviewOrder extends Component {
             stripeRequest: data
           });
         }
-        fetch('https://savi-travel.com:8084/payments', {
+        fetch('https://savi-travel.com:8080/payments', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -64,8 +64,9 @@ class ReviewOrder extends Component {
         })
         .then(resp => resp.json())
           .then(function(response) {
+            console.log('PAID', response);
             if(response.paid) {
-            fetch('https://savi-travel.com:8084/api/bookings?date=05-28-2017&tourId=1&userId=D4qVbImbMdgmOSaN')
+            fetch(`https://savi-travel.com:8080/api/bookings?date=${this.props.data.info.date}&tourId=${this.props.data.tour.id}&userId=${this.props.user}`)
               .then(resp => resp.json())
               .then(data => this.setState({data}))
               .catch(err => console.error(err));
@@ -92,10 +93,10 @@ class ReviewOrder extends Component {
   */
 
   render() {
-    console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date);
+    console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date, 'user id: ', this.props.user);
     let {width, height} = Dimensions.get('window');
-    let port = 8084;
-    let imgUri = `https://savi-travel.com:8084/api/images/`;
+    let port = 8080;
+    let imgUri = `https://savi-travel.com:8080/api/images/`;
     return (
 
       <View style={{
@@ -141,7 +142,7 @@ class ReviewOrder extends Component {
             </Text>
 
             <Text style={Styles.components.body}>
-            You've booked
+            {"You've booked"}
             {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
             for {this.props.data.info.date.toString()}
             </Text>

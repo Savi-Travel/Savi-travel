@@ -91,7 +91,7 @@ class RegisterUser extends Component {
     let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
     // info to post
     let userInfo = {
-      userId: this.props.data.identities[0].userId,
+      userId: this.props.data.identities[0].user_id,
       profileData: {
         name: this.props.data.name,
         email: this.props.data.email,

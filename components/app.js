@@ -50,6 +50,9 @@ class App extends Component {
     }
 
     if (data !== undefined) {
+      if (data.userAuthId) {
+        this.setState({ profile: data.userAuthId });
+      }
       this.setState({
         currentPage: pageId,
         data
@@ -86,6 +89,7 @@ class App extends Component {
               nav={this.changePage.bind(this)}
               data={this.state.data}
               paymentInfo={this.state.paymentInfo}
+              user={this.state.profile}
               />, index: 3},
       {page: <WelcomeView
               log={this.login.bind(this)}
