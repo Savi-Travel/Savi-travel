@@ -18,6 +18,8 @@ let lock = new Auth0Lock(credentials);
 
 let STORAGE_KEY = 'id_token';
 
+let port = 8080;
+
 class WelcomeView extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +35,7 @@ class WelcomeView extends Component {
       }
       this.setToken(token.idToken);
       // check if user exists
-      fetch('https://savi-travel.com:8080/api/users', {
+      fetch(`https://savi-travel.com:${8080}/api/users`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

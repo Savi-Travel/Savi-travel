@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 0,
+      currentPage: 4,
       logged: false,
       profile: '',
       token: '',
@@ -115,11 +115,10 @@ class App extends Component {
         initialRouteStack={routes}
         renderScene={(route, navigator) => {
           return routes[this.state.currentPage].page;
-        }
-        }/>
+        }}
+      />
     );
   }
 }
 
 export default App;
-
