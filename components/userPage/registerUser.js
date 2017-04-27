@@ -90,6 +90,7 @@ class RegisterUser extends Component {
     // format language
     let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
     // info to post
+    console.log('registration: ', this.props.data.identities[0].user_id);
     let userInfo = {
       userId: this.props.data.identities[0].user_id,
       profileData: {
@@ -117,6 +118,7 @@ class RegisterUser extends Component {
       })
         .then(resp => resp.json())
         .then(data => {
+          console.log('passing registration: ', data);
           this.props.nav(6, data.user);
         })
         .catch(err => console.error(err));

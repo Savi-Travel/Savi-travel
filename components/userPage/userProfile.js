@@ -49,9 +49,9 @@ class UserProfile extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   console.log('user data: ', this.props.data);
-  // }
+  componentDidMount() {
+    console.log('user data: ', this.props.data);
+  }
 
   _bookingsByType(userType) {
     // employee
