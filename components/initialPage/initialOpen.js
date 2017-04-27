@@ -10,9 +10,6 @@ import credentials from '../../auth0-credentials';
 
 let STORAGE_KEY = 'id_token';
 
-// for testing
-// let testToken = 'id token from Auth0';
-
 class InitialOpen extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +17,6 @@ class InitialOpen extends Component {
   }
 
   componentWillMount() {
-    // this.setToken();
     this.getToken();
   }
   // function to get token from storage
