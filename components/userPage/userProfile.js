@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import UserAvatar from 'react-native-user-avatar';
 
+let port = 8080;
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
   container: {
@@ -39,21 +40,21 @@ let styles = StyleSheet.create({
   }
 });
 
-let port = 8080;
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       tours: ''
     };
   }
 
-  // componentDidMount() {
-  //   console.log('user data: ', this.props.data);
-  // }
+  componentDidMount() {
+    console.log('user data: ', this.props.data);
+  }
 
-  _bookingsByType(userType) {
+  bookingsByType(userType) {
     // employee
     // if (userType === 'Tour Guide' || userType === 'Driver') {
       // return bookings for employee
@@ -71,20 +72,14 @@ class UserProfile extends Component {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
-      /*<Image
-        style={styles.profilePic}
-        source={{uri: imgUri + this.props.data.photo}}
-      />*/
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={styles.container}>
         <View style={{marginTop: 20}}>
           <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
         </View>
-        <Text
-          style={styles.textContent}
-        >
-        Hello {this.props.data.userName.split(/ /)[0]},
+        <Text style={styles.textContent}>
+          Hello {this.props.data.userName.split(/ /)[0]},
         </Text>
         <Text style={styles.textContent}>You have no booked tours.</Text>
 
@@ -93,7 +88,7 @@ class UserProfile extends Component {
             style={styles.browseButon}
             underlayColor='#949494'
             onPress={() => {
-              this.props.nav(0);
+              this.props.nav(0, this.props.data);
             }}
           >
             <Text>Browse Tours</Text>

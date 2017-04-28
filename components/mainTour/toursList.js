@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../../styles/styles.js';
-import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
-import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 import {
   Text,
   Button,
@@ -12,15 +9,19 @@ import {
   Image,
   Dimensions
 } from 'react-native';
+import Styles from '../../styles/styles.js';
+import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
+import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 
 class ToursList extends Component {
   constructor(props) {
     super(props);
+
     this.state = { data: [] };
   }
 
   componentWillMount() {
-    fetch('https://savi-travel.com:8084/api/tours')
+    fetch('https://savi-travel.com:8080/api/tours')
       .then(resp => resp.json())
       .then(data => this.setState({data}))
       .catch(err => console.error(err));
@@ -34,7 +35,7 @@ class ToursList extends Component {
     let tours = this.state.data.filter(item => {
       return item.cityId === this.props.data.id;
     });
-    let port = 8084;
+    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={Styles.toursList('mainContainer')}>
@@ -44,9 +45,9 @@ class ToursList extends Component {
         <View>
           <ScrollView horizontal={true}>
             <View style={Styles.toursList('scrollContainer')}>
-            {tours.map((item, i) => {
+            {tours.map(item=> {
               return (
-                <View key={i} style={Styles.toursList('viewFrame')}>
+                <View key={item.id} style={Styles.toursList('viewFrame')}>
                   <View style={Styles.toursList('viewFrameInner')}>
 
                     <TouchableHighlight
@@ -63,7 +64,7 @@ class ToursList extends Component {
                     </View>
                   </View>
                 </View>
-              )
+              );
             })}
             </View>
           </ScrollView>

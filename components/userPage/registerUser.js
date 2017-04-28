@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native';
-import Autocomplete from 'react-native-autocomplete-input';
+import CitySelector from './citySelector';
 
 let styles = StyleSheet.create({
   registerContainer: {
@@ -68,9 +68,54 @@ let styles = StyleSheet.create({
   }
 });
 
+// helper functions
+
+var formatSpelling = function(input) {
+  let regex = new RegExp('USA', 'i');
+  if (input.search(regex) >= 0) {
+    return 'USA';
+  }
+  let firstChar = input.charAt().toUpperCase();
+  let formattedInput = input.toLowerCase().replace(/\w/, firstChar);
+  return formattedInput;
+};
+
+var formatLanguages = function(primary, others) {
+  // primary
+  let firstChar = primary.charAt().toUpperCase();
+  let formattedPrimary = primary.toLowerCase().replace(/\w/, firstChar);
+  let allLanguages = [formattedPrimary];
+  // others
+  let languageCollection = others.split(', ');
+  for (let i = 0; i < languageCollection.length; i++) {
+    let firstChar = languageCollection[i].charAt().toUpperCase();
+    let formattedLanguage = languageCollection[i].toLowerCase().replace(/\w/, firstChar);
+    allLanguages = [...allLanguages, formattedLanguage];
+  }
+  return allLanguages;
+};
+
+var formatCity = function(city) {
+  let cityFormatted = [];
+  let cityBreakdown = city.split(' ');
+  for (let i = 0; i < cityBreakdown.length; i++) {
+    let firstChar = cityBreakdown[i].charAt().toUpperCase();
+    let formattedWord = cityBreakdown[i].toLowerCase().replace(/\w/, firstChar);
+    cityFormatted = [...cityFormatted, formattedWord];
+  }
+  if (cityFormatted.join(' ') === 'Rio De Janeiro') {
+    return 'Rio de Janeiro';
+  } else {
+    return cityFormatted.join(' ');
+  }
+};
+
+// Component: registration
+
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
+
     this.state = ({
       mdn: '',
       country: '',
@@ -79,6 +124,9 @@ class RegisterUser extends Component {
       otherLanguage: '',
       complete: true
     });
+
+    this.handleCity = this.handleCity.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   createUser(userInput) {
@@ -90,8 +138,9 @@ class RegisterUser extends Component {
     // format language
     let languages = formatLanguages(this.state.primary, this.state.otherLanguage);
     // info to post
+    // console.log('registration: ', this.props.data.identities[0].user_id);
     let userInfo = {
-      userId: this.props.data.identities[0].userId,
+      userId: this.props.data.identities[0].user_id,
       profileData: {
         name: this.props.data.name,
         email: this.props.data.email,
@@ -106,7 +155,6 @@ class RegisterUser extends Component {
     if (userInfo.profileData.phone === '' || userInfo.profileData.city === '' || userInfo.profileData.country === '' || userInfo.profileData.languages === '') {
       this.setState({complete: false});
     } else {
-      // POST request to backend
       fetch('https://savi-travel.com:8080/api/users', {
         method: 'POST',
         headers: {
@@ -117,17 +165,10 @@ class RegisterUser extends Component {
       })
         .then(resp => resp.json())
         .then(data => {
+          // console.log('passing registration: ', data);
           this.props.nav(6, data.user);
         })
         .catch(err => console.error(err));
-      // clear state
-      // this.setState({
-      //   mdn: '',
-      //   country: '',
-      //   city: '',
-      //   primary: '',
-      //   otherLanguage: ''
-      // });
     }
   }
 
@@ -208,7 +249,7 @@ class RegisterUser extends Component {
               onChangeText={otherLanguage => this.setState({otherLanguage})}
             />
             <View style={{height: 40}}>
-              <CitySelector regCity={this.handleCity.bind(this)}/>
+              <CitySelector regCity={this.handleCity}/>
             </View>
           </View>
         </View>
@@ -219,7 +260,7 @@ class RegisterUser extends Component {
           <TouchableHighlight
             style={styles.submitButton}
             underlayColor='#949494'
-            onPress={this.createUser.bind(this)}>
+            onPress={this.createUser}>
             <Text>Create account</Text>
           </TouchableHighlight>
         </View>
@@ -228,106 +269,4 @@ class RegisterUser extends Component {
   }
 }
 
-// Component: Available cities
-class CitySelector extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      locations: [],
-      city: '',
-      query: ''
-    };
-  }
-
-  componentWillMount() {
-    fetch('https://savi-travel.com:8080/api/cities')
-      .then(resp => resp.json())
-      .then(data => this.setState({locations: data}))
-      .catch(err => console.error(err));
-  }
-
-  findCity (query) {
-    if (query === '') {
-      return [];
-    }
-
-    const { locations } = this.state;
-    const regex = new RegExp(`${query.trim()}`, 'i');
-    return locations.filter(location => location.name.search(regex) >= 0);
-  }
-
-  render() {
-    const { query } = this.state;
-    const cities = this.findCity(query);
-    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-
-    return (
-      <View style={styles.container}>
-        <Autocomplete
-          autoCapitalize='none'
-          autoCorrect={false}
-          containerStyle={styles.autocompleteContainer}
-          data={cities.length === 1 && comp(query, cities[0].name) ? [] : cities}
-          defaultValue={query}
-          onChangeText={text => {
-            this.props.regCity(text);
-            this.setState({ query: text });
-          }}
-          placeholder='City'
-          renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => {
-              this.props.regCity(name);
-              this.setState({ query: name });
-            }}>
-              <Text style={styles.itemText}>{name}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-    );
-  }
-}
-
 export { RegisterUser };
-
-// helper functions
-
-var formatSpelling = function(input) {
-  let regex = new RegExp('USA', 'i');
-  if (input.search(regex) >= 0) {
-    return 'USA';
-  }
-  let firstChar = input.charAt().toUpperCase();
-  let formattedInput = input.toLowerCase().replace(/\w/, firstChar);
-  return formattedInput;
-};
-
-var formatLanguages = function(primary, others) {
-  // primary
-  let firstChar = primary.charAt().toUpperCase();
-  let formattedPrimary = primary.toLowerCase().replace(/\w/, firstChar);
-  let allLanguages = [formattedPrimary];
-  // others
-  let languageCollection = others.split(', ');
-  for (let i = 0; i < languageCollection.length; i++) {
-    let firstChar = languageCollection[i].charAt().toUpperCase();
-    let formattedLanguage = languageCollection[i].toLowerCase().replace(/\w/, firstChar);
-    allLanguages = [...allLanguages, formattedLanguage];
-  }
-  return allLanguages;
-};
-
-var formatCity = function(city) {
-  let cityFormatted = [];
-  let cityBreakdown = city.split(' ');
-  for (let i = 0; i < cityBreakdown.length; i++) {
-    let firstChar = cityBreakdown[i].charAt().toUpperCase();
-    let formattedWord = cityBreakdown[i].toLowerCase().replace(/\w/, firstChar);
-    cityFormatted = [...cityFormatted, formattedWord];
-  }
-  if (cityFormatted.join(' ') === 'Rio De Janeiro') {
-    return 'Rio de Janeiro';
-  } else {
-    return cityFormatted.join(' ');
-  }
-};

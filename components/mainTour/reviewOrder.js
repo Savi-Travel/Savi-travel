@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../../styles/styles.js';
-import Load from "../../node_modules/react-native-loading-gif";
-
 import {
   Text,
   Button,
@@ -12,10 +9,13 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
+import Styles from '../../styles/styles.js';
+import Load from '../../node_modules/react-native-loading-gif';
 
 class ReviewOrder extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       data: {
         tour: {},
@@ -39,22 +39,21 @@ class ReviewOrder extends Component {
   }
 
   componentWillMount() {
-    fetch('https://api.stripe.com/v1/tokens?card[number]='+this.props.paymentInfo.cardNumber+'&card[exp_month]='+this.props.paymentInfo.expMonth+'&card[exp_year]='+this.props.paymentInfo.expYear+'&card[cvc]='+this.props.paymentInfo.cvc+'&amount=111&currency=usd', {
+    // need amount to equal to # of passengers
+    fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.props.paymentInfo.cardNumber}&card[exp_month]=${this.props.paymentInfo.expMonth}&card[exp_year]=${this.props.paymentInfo.expYear}&card[cvc]=${this.props.paymentInfo.cvc}&amount=111&currency=usd`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Bearer sk_test_t33bUz9G1cD2X6UexENeMvpd"
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer sk_test_t33bUz9G1cD2X6UexENeMvpd'
       }
     })
-    .then(resp => resp.json())
+      .then(resp => resp.json())
       .then(data => {
         console.log('success..', data);
-        if(data) {
-          this.setState({
-            stripeRequest: data
-          });
+        if (data) {
+          this.setState({ stripeRequest: data });
         }
-        fetch('https://savi-travel.com:8084/payments', {
+        fetch('https://savi-travel.com:8080/payments', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -62,21 +61,20 @@ class ReviewOrder extends Component {
           },
           body: JSON.stringify({stripeToken: data.id, totalAmount: this.props.paymentInfo.totalPrice})
         })
-        .then(resp => resp.json())
+          .then(resp => resp.json())
           .then(function(response) {
-            if(response.paid) {
-            fetch('https://savi-travel.com:8084/api/bookings?date=05-28-2017&tourId=1&userId=D4qVbImbMdgmOSaN')
-              .then(resp => resp.json())
-              .then(data => this.setState({data}))
-              .catch(err => console.error(err));
-              this.setState({
-                paymentReady: true
-              });
+            console.log('PAID', response);
+            if (response.paid) {
+              fetch(`https://savi-travel.com:8080/api/bookings?date=${this.props.data.info.date}&tourId=${this.props.data.tour.id}&userId=${this.props.user}`)
+                .then(resp => resp.json())
+                .then(data => this.setState({data}))
+                .catch(err => console.error(err));
+              this.setState({ paymentReady: true });
             }
-          }.bind(this)).catch(err => console.error(err));
+          }.bind(this))
+          .catch(err => console.error(err));
       })
-    .catch(err => console.error(err));
-
+      .catch(err => console.error(err));
   }
 
   /*
@@ -92,12 +90,11 @@ class ReviewOrder extends Component {
   */
 
   render() {
-    console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date);
+    // console.log('tour id: ', this.props.data.tour.id, 'tour date: ', this.props.data.info.date, 'user id: ', this.props.user);
     let {width, height} = Dimensions.get('window');
-    let port = 8084;
-    let imgUri = `https://savi-travel.com:8084/api/images/`;
+    let port = 8080;
+    let imgUri = 'https://savi-travel.com:8080/api/images/';
     return (
-
       <View style={{
         flex: 1,
         flexDirection: 'column'
@@ -126,9 +123,7 @@ class ReviewOrder extends Component {
           paddingLeft: 30,
           paddingRight: 30
         }}>
-          <Text
-            style={Styles.components.h1}>{ this.props.data.city.name }
-          </Text>
+          <Text style={Styles.components.h1}>{ this.props.data.city.name }</Text>
 
           <View style={{
             backgroundColor: Styles.colors.lightGreen,
@@ -136,12 +131,10 @@ class ReviewOrder extends Component {
             borderRadius: 2,
             marginTop: 30
           }}>
-            <Text
-              style={Styles.components.h2}>{ this.props.data.tour.title }
-            </Text>
+            <Text style={Styles.components.h2}>{ this.props.data.tour.title }</Text>
 
             <Text style={Styles.components.body}>
-            You've booked
+            {"You've booked"}
             {(this.props.data.info.passengers>1) ? " "+this.props.data.info.passengers+" seats " :  " "+this.props.data.info.passengers+" seat "}
             for {this.props.data.info.date.toString()}
             </Text>
@@ -163,7 +156,7 @@ class ReviewOrder extends Component {
                   textAlign: 'center',
                   margin: 10,
                   color: Styles.colors.mainBlue
-                }}>
+              }}>
                 Your driver is
               </Text>
               <View style={{
@@ -179,7 +172,7 @@ class ReviewOrder extends Component {
                     borderRadius: 50
                   }}
                   source={{
-                    uri: imgUri+this.state.data.driver.photo
+                    uri: imgUri + this.state.data.driver.photo
                   }}>
                 </Image>
               </View>

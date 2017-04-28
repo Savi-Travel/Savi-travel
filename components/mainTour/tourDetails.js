@@ -1,8 +1,5 @@
 'use strict';
 import React, { Component } from 'react';
-import Styles from '../../styles/styles.js';
-import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
-import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 import {
   Text,
   Button,
@@ -17,11 +14,15 @@ import {
   ScrollView,
   Picker
 } from 'react-native';
+import Styles from '../../styles/styles.js';
+import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
+import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-datepicker';
 
 class TourDetails extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       date: new Date(),
       endDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
@@ -33,6 +34,7 @@ class TourDetails extends Component {
       text: '',
       totalPrice: this.props.data.tour.price
     }
+
     var acceptBtn = () => {
       this.props.nav(1)
     };
@@ -56,10 +58,11 @@ class TourDetails extends Component {
   */
 
   render() {
-    let port = 8084;
+    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     const {width, height} = Dimensions.get('window');
     var _scrollView: ScrollView;
+    // console.log('props from tour details: ', this.props.info);
     return (
         <ScrollView ref={(scrollView) => { _scrollView = scrollView; }} >
           <View style={Styles.tourDetails('topView')}>
@@ -350,7 +353,7 @@ class TourInfo extends Component {
   }
 
   render() {
-    let port = 8084;
+    let port = 8080;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View>
