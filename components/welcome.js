@@ -6,13 +6,14 @@ import {
   View,
   Image,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions
 } from 'react-native';
 
 import Auth0Lock from 'react-native-lock';
 
 import credentials from '../auth0-credentials';
-
+let dimensions = Dimensions.get('window');
 let lock = new Auth0Lock(credentials);
 
 let STORAGE_KEY = 'id_token';
@@ -93,4 +94,4 @@ class WelcomeView extends Component {
   }
 }
 
-export { WelcomeView };
+module.exports = { WelcomeView: WelcomeView, size: dimensions };

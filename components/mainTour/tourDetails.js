@@ -30,7 +30,8 @@ class TourDetails extends Component {
       cardNumber: '',
       expYear: '',
       expMonth: '',
-      text: ''
+      text: '',
+      totalPrice: this.props.data.tour.price
     }
     var acceptBtn = () => {
       this.props.nav(1)
@@ -42,7 +43,9 @@ class TourDetails extends Component {
   }
 
   onDateChange = (date) => {
-    this.setState({date});
+    this.setState({
+      date
+    });
   };
 
   /*
@@ -59,7 +62,7 @@ class TourDetails extends Component {
     var _scrollView: ScrollView;
     return (
         <ScrollView ref={(scrollView) => { _scrollView = scrollView; }} >
-          <View style={{height: height}}>
+          <View style={Styles.tourDetails('topView')}>
             <TourInfo
               data={this.props.data.tour}
               dimensions={{width, height}}
@@ -106,11 +109,14 @@ class TourDetails extends Component {
                   </Text>
                 </View>
                 <View style={{
-                  marginBottom: 30
+
                 }}>
                   <DisplayPicker
                     selectedValue={this.state.passengers}
-                    onValueChange={(quantity) => this.setState({passengers: quantity})}
+                    onValueChange={(quantity) => this.setState({
+                      passengers: quantity,
+                      totalPrice: quantity * this.props.data.tour.price,
+                    })}
                   />
                 </View>
               </View>
@@ -138,7 +144,7 @@ class TourDetails extends Component {
                   style={{
                     width: 300,
                     padding: 20,
-                    marginTop: 40,
+                    marginTop: 10,
                     marginRight: 30,
                     marginLeft: 30
                   }}
@@ -152,6 +158,31 @@ class TourDetails extends Component {
                   cancelBtnText="Cancel"
                   onDateChange={this.onDateChange}
                 />
+              </View>
+              <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Styles.colors.lightGreen,
+                borderRadius: 5,
+                alignSelf: 'stretch',
+                marginBottom: 10,
+                height: 30
+              }}>
+                <Text style={{
+                  color: Styles.colors.lightGreen,
+                  fontSize: 20
+                }}>
+                  Total Price
+                </Text>
+                <Text style={{
+                  color: Styles.colors.lightGreen,
+                  fontSize: 20
+                }}>
+                  {"$ " + this.state.totalPrice}
+                </Text>
               </View>
             </View>
 
@@ -200,24 +231,24 @@ class TourDetails extends Component {
             >
             <View style={{
               marginTop: 22,
-              backgroundColor: Styles.colors.mainBlue,
-              opacity: .9,
+              backgroundColor: Styles.colors.darkBlue,
+              opacity: .95,
               height: height
             }}>
               <View style={{
-                marginLeft: 30,
-                marginRight: 30,
+                marginLeft: 40,
+                marginRight: 40,
                 borderWidth: 1.5,
                 borderColor: Styles.colors.almostWhite,
                 padding: 15,
-                marginTop: 30,
+                marginTop: 60,
                 borderRadius: 5
               }}>
 
                 <View>
                   <Image
                     source={require('../images/powered-by-stripe.png')}
-                    style={{width: 275}}
+                    style={{width: 255}}
                   />
                 </View>
 
@@ -231,7 +262,7 @@ class TourDetails extends Component {
                 <TextInput
                   style={Styles.components.cardInputs}
                   onChangeText={(expYear) => this.setState({expYear: expYear})}
-                  placeholder={'expiration date'}
+                  placeholder={'expiration year'}
                 />
 
                 <TextInput
@@ -255,7 +286,8 @@ class TourDetails extends Component {
                     cardNumber: this.state.cardNumber,
                     expYear: this.state.expYear,
                     expMonth: this.state.expMonth,
-                    cvc: this.state.cvc
+                    cvc: this.state.cvc,
+                    totalPrice: this.state.totalPrice
                   })}}
                   style={{
                     backgroundColor: Styles.colors.lightGreen,
@@ -274,7 +306,7 @@ class TourDetails extends Component {
                     <Text style={{
                       color: Styles.colors.almostWhite,
                       fontSize: 18
-                    }}>Accept Payment</Text>
+                    }}>Accept Payment for $ {this.props.data.tour.price * this.state.passengers}</Text>
                   </View>
                 </TouchableHighlight>
                 <TouchableHighlight
@@ -332,7 +364,7 @@ class TourInfo extends Component {
         <Text style={[
           Styles.components.bodyText,
           Styles.components.textColor
-        ]}>{this.props.data.description}</Text>
+        ]}>{this.props.data.description} {"\n $ " + this.props.data.price}</Text>
       </View>
     );
   }
@@ -347,12 +379,12 @@ class DisplayPicker extends Component {
     return (
       <Picker
         style={{
-
+          borderRadius: 50
         }}
-        itemStyle={{color:'blue'}}
+        itemStyle={{color:Styles.colors.mainBlue}}
         selectedValue={this.props.selectedValue}
         onValueChange={this.props.onValueChange}>
-        <Picker.Item color="green" label="1" value="1" />
+        <Picker.Item label="1" value="1" />
         <Picker.Item label="2" value="2" />
         <Picker.Item label="3" value="3" />
         <Picker.Item label="4" value="4" />

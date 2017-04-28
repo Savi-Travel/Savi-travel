@@ -42,7 +42,7 @@ class InitialOpen extends Component {
         })
           .then(resp => {
             // console.log('expected fail: ', resp.status);
-            if (resp.status === 401) {
+            if (resp.status === 401 ) {
               // expired token - redirect to login page
               return this.props.nav(4);
             }

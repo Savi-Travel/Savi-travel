@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Styles from '../../styles/styles.js';
+import tour from '../../styles/toursList.js';
+
 import {
   Text,
   Button,
@@ -31,7 +33,7 @@ class HomePage extends Component {
     return (
       <View>
         <ScrollView>
-          <Text style={Styles.components.logo}>Savi Travel</Text>
+          <Text style={Styles.home('logo')}>Savi Travel </Text>
             {this.state.data.map((item, i) => {
               return (
                 <View key={i}>
@@ -41,8 +43,8 @@ class HomePage extends Component {
                     <Image source={{uri: imgUri + item.mainImage}}
                       style={{width: width, height: height / 3, margin: 0}}
                     >
-                    <View style={Styles.components.cityTitlesView}>
-                      <Text style={Styles.components.cityTitlesText}>{item.name}</Text>
+                    <View style={Styles.home('cityTitlesView')}>
+                      <Text style={Styles.home('cityTitlesText')}>{item.name}</Text>
                     </View>
                     </Image>
 

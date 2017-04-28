@@ -37,82 +37,44 @@ class ToursList extends Component {
     let port = 8084;
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
-      <View style={{height: height, flex: 1, justifyContent: 'space-between'}}>
-        <View style={{width: width / 1.03}}>
-          <Text style={Styles.components.location}>{this.props.data.name} Tours</Text>
+      <View style={Styles.toursList('mainContainer')}>
+        <View>
+          <Text style={Styles.toursList('location')}>{this.props.data.name} Tours</Text>
         </View>
         <View>
           <ScrollView horizontal={true}>
-            <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'row'}}>
+            <View style={Styles.toursList('scrollContainer')}>
             {tours.map((item, i) => {
               return (
-                <View key={i} style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  width: width
-                }}>
-                  <View style={{
-                    marginLeft: 30,
-                    marginRight: 30
-                  }}>
-
-
-
+                <View key={i} style={Styles.toursList('viewFrame')}>
+                  <View style={Styles.toursList('viewFrameInner')}>
 
                     <TouchableHighlight
                       onPress={() => { this.props.nav(2, {city: this.props.data, tour: item}); }}
                     >
-                      <View style={{
-                        borderRadius: 5,
-                        borderWidth: 1,
-                        borderColor: Styles.colors.mainBlue,
-                        padding: 5
-                      }}>
+                      <View style={Styles.toursList('imageFrame')}>
                         <Image source={{uri: imgUri + item.mainImage}}
-                          style={{
-                            height: height / 2,
-                            borderRadius: 5,
-                          }}
+                          style={Styles.toursList('tourImage')}
                         />
                       </View>
                     </TouchableHighlight>
-                    <View style={{
-                      marginTop: 20,
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      backgroundColor: Styles.colors.mainBlue,
-                      borderRadius: 5
-                    }}>
-                      <Text style={[
-                        Styles.components.tourDesc
-                      ]}>{item.description}</Text>
+                    <View style={Styles.toursList('descriptionContainer')}>
+                      <Text style={Styles.toursList('descriptionText')}>{item.description}</Text>
                     </View>
                   </View>
                 </View>
               )
             })}
             </View>
-        </ScrollView>
+          </ScrollView>
         </View>
-        <View style={{
-          paddingRight: 30,
-          paddingLeft: 30
-        }}>
+        <View style={Styles.toursList('buttonWrapper')}>
           <TouchableHighlight
               onPress={() => {this.props.nav(0)}}
-              style={Styles.components.buttonTransparent}
+              style={Styles.toursList('buttonTransparent')}
             >
-              <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: 0
-              }}>
-                <Text style={{
-                  color: Styles.colors.mainBlue,
-                  fontSize: 20
-                }}>Go Back</Text>
+              <View style={Styles.toursList('buttonInner')}>
+                <Text style={Styles.toursList('buttonText')}>Go Back</Text>
               </View>
           </TouchableHighlight>
         </View>
