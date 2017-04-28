@@ -60,12 +60,12 @@ class ReviewOrder extends Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({stripeToken: data.id})
+          body: JSON.stringify({stripeToken: data.id, totalAmount: this.props.paymentInfo.totalPrice})
         })
         .then(resp => resp.json())
           .then(function(response) {
             if(response.paid) {
-            fetch('https://savi-travel.com:8084/api/bookings?date=05-28-2017&tourId=1')
+            fetch('https://savi-travel.com:8084/api/bookings?date=05-28-2017&tourId=1&userId=D4qVbImbMdgmOSaN')
               .then(resp => resp.json())
               .then(data => this.setState({data}))
               .catch(err => console.error(err));
@@ -108,7 +108,7 @@ class ReviewOrder extends Component {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor:Styles.colors.mainBlue,
+          backgroundColor:Styles.colors.darkBlue,
           opacity: .8,
           height: height
         }}>
