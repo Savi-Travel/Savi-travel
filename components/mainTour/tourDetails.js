@@ -22,6 +22,7 @@ import DatePicker from 'react-native-datepicker';
 class TourDetails extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       date: new Date(),
       endDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
@@ -33,6 +34,7 @@ class TourDetails extends Component {
       text: '',
       totalPrice: this.props.data.tour.price
     }
+
     var acceptBtn = () => {
       this.props.nav(1)
     };
