@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../../styles/styles.js';
-import Load from '../../node_modules/react-native-loading-gif';
-
 import {
   Text,
   Button,

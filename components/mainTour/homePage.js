@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Styles from '../../styles/styles.js';
-
 import {
   Text,
   Button,
