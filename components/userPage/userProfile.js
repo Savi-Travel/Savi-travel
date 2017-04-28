@@ -44,6 +44,7 @@ let styles = StyleSheet.create({
 class UserProfile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       tours: ''
     };
@@ -53,7 +54,7 @@ class UserProfile extends Component {
     console.log('user data: ', this.props.data);
   }
 
-  _bookingsByType(userType) {
+  bookingsByType(userType) {
     // employee
     // if (userType === 'Tour Guide' || userType === 'Driver') {
       // return bookings for employee
@@ -71,20 +72,14 @@ class UserProfile extends Component {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
-      /*<Image
-        style={styles.profilePic}
-        source={{uri: imgUri + this.props.data.photo}}
-      />*/
     let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={styles.container}>
         <View style={{marginTop: 20}}>
           <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
         </View>
-        <Text
-          style={styles.textContent}
-        >
-        Hello {this.props.data.userName.split(/ /)[0]},
+        <Text style={styles.textContent}>
+          Hello {this.props.data.userName.split(/ /)[0]},
         </Text>
         <Text style={styles.textContent}>You have no booked tours.</Text>
 
