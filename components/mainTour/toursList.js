@@ -45,9 +45,9 @@ class ToursList extends Component {
         <View>
           <ScrollView horizontal={true}>
             <View style={Styles.toursList('scrollContainer')}>
-            {tours.map((item, i) => {
+            {tours.map(item=> {
               return (
-                <View key={i} style={Styles.toursList('viewFrame')}>
+                <View key={item.id} style={Styles.toursList('viewFrame')}>
                   <View style={Styles.toursList('viewFrameInner')}>
 
                     <TouchableHighlight
@@ -64,7 +64,7 @@ class ToursList extends Component {
                     </View>
                   </View>
                 </View>
-              )
+              );
             })}
             </View>
           </ScrollView>
