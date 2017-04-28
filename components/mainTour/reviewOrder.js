@@ -42,6 +42,7 @@ class ReviewOrder extends Component {
   }
 
   componentWillMount() {
+    // need amount to equal to # of passengers
     fetch(`https://api.stripe.com/v1/tokens?card[number]=${this.props.paymentInfo.cardNumber}&card[exp_month]=${this.props.paymentInfo.expMonth}&card[exp_year]=${this.props.paymentInfo.expYear}&card[cvc]=${this.props.paymentInfo.cvc}&amount=111&currency=usd`, {
       method: 'POST',
       headers: {
