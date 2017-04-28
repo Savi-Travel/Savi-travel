@@ -179,11 +179,13 @@ const components = StyleSheet.create({
   }
 });
 
-module.exports = {
+const Styles = {
   components: components,
   home: home,
   toursList: toursList,
   tourDetails: tourDetails,
   colors: assets.colors,
   fonts: assets.fonts
-}
+};
+
+export { Styles }

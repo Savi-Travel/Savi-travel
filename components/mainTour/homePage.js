@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   ScrollView
 } from 'react-native';
-import Styles from '../../styles/styles.js';
+import { Styles } from '../../styles/styles.js';
 
 let {width, height} = Dimensions.get('window');
 let port = 8080;

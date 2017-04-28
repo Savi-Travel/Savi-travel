@@ -9,7 +9,7 @@ import {
   Image,
   Dimensions
 } from 'react-native';
-import Styles from '../../styles/styles.js';
+import { Styles } from '../../styles/styles.js';
 import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
 import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 

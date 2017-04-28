@@ -5,7 +5,7 @@ import {
   View,
   Navigator
 } from 'react-native';
-import Styles from '../styles/styles.js';
+import { Styles } from '../styles/styles.js';
 import { HomePage } from './mainTour/homePage';
 import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 7,
+      currentPage: 0,
       logged: false,
       profile: '',
       token: '',
