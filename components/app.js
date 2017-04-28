@@ -20,7 +20,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentPage: 0,
+      currentPage: 7,
       logged: false,
       profile: '',
       token: '',

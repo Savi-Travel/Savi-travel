@@ -24,7 +24,7 @@ class TourDetails extends Component {
     super(props);
 
     this.state = {
-      date: new Date(),
+      date: '04-28-2017',
       endDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
       passengers: 1,
       modalVisible: false,
