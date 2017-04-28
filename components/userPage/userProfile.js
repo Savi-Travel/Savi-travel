@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import UserAvatar from 'react-native-user-avatar';
 
+let port = 8080;
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
   container: {
@@ -39,7 +40,6 @@ let styles = StyleSheet.create({
   }
 });
 
-let port = 8080;
 
 class UserProfile extends Component {
   constructor(props) {
