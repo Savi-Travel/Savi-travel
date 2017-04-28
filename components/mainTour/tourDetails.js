@@ -14,7 +14,7 @@ import {
   ScrollView,
   Picker
 } from 'react-native';
-import Styles from '../../styles/styles.js';
+import { Styles } from '../../styles/styles.js';
 import Icon from '../../node_modules/react-native-vector-icons/FontAwesome';
 import MaterialIcons from '../../node_modules/react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-datepicker';
@@ -24,7 +24,7 @@ class TourDetails extends Component {
     super(props);
 
     this.state = {
-      date: new Date(),
+      date: '04-28-2017',
       endDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
       passengers: 1,
       modalVisible: false,

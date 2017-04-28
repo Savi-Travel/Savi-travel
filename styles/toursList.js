@@ -1,10 +1,12 @@
 import assets from './assets.js';
-import Screen from '../components/welcome.js';
+// import Screen from '../components/welcome.js';
+import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 module.exports = function(element) {
   let properties = {
   	mainContainer: {
-      height: Screen.size.height,
+      height: height,
   		flex: 1,
 			justifyContent: 'space-between'
   	},
@@ -16,13 +18,13 @@ module.exports = function(element) {
     },
 
     titleWrapper: {
-      width: Screen.size.width / 1.03
+      width: width / 1.03
     },
 
     viewFrame: {
       flex: 1,
       flexDirection: 'column',
-      width: Screen.size.width
+      width: width
     },
 
     viewFrameInner: {
@@ -38,7 +40,7 @@ module.exports = function(element) {
     },
 
     tourImage: {
-      height: Screen.size.height / 2,
+      height: height / 2,
       borderRadius: 5,
     },
 

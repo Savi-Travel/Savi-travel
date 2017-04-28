@@ -7,7 +7,7 @@ import {
   AsyncStorage,
   Dimensions
 } from 'react-native';
-import Styles from '../styles/styles.js';
+import { Styles } from '../styles/styles';
 import Auth0Lock from 'react-native-lock';
 import credentials from '../auth0-credentials';
 let dimensions = Dimensions.get('window');
@@ -92,4 +92,4 @@ class WelcomeView extends Component {
   }
 }
 
-module.exports = { WelcomeView: WelcomeView, size: dimensions };
+export { WelcomeView };

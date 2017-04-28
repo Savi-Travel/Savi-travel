@@ -236,6 +236,13 @@ class RegisterUser extends Component {
             />
             <TextInput
               style={styles.inputBox}
+              placeholder='City'
+              maxLength={25}
+              value={this.state.city}
+              onChangeText={city => this.setState({city})}
+            />
+            <TextInput
+              style={styles.inputBox}
               placeholder='Primary Language'
               maxLength={25}
               value={this.state.primary}
@@ -248,9 +255,7 @@ class RegisterUser extends Component {
               value={this.state.otherLanguage}
               onChangeText={otherLanguage => this.setState({otherLanguage})}
             />
-            <View style={{height: 40}}>
-              <CitySelector regCity={this.handleCity}/>
-            </View>
+
           </View>
         </View>
         <View style={{marginTop: 20}}>
@@ -270,3 +275,8 @@ class RegisterUser extends Component {
 }
 
 export { RegisterUser };
+
+
+            // <View style={{height: 40}}>
+            //   <CitySelector regCity={this.handleCity}/>
+            // </View>
