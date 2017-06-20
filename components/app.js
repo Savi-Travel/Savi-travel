@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Styles from '../styles/styles.js';
 import {
   Text,
   Button,
   View,
   Navigator
 } from 'react-native';
+import { Styles } from '../styles/styles.js';
 import { HomePage } from './mainTour/homePage';
 import { ToursList } from './mainTour/toursList';
 import { TourDetails } from './mainTour/tourDetails';
@@ -13,36 +13,43 @@ import { ReviewOrder } from './mainTour/reviewOrder';
 import { WelcomeView } from './welcome';
 import { RegisterUser } from './userPage/registerUser';
 import { UserProfile } from './userPage/userProfile';
+import { InitialOpen } from './initialPage/initialOpen';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentPage: 0,
-      logged: true,
+      currentPage: 7,
+      logged: false,
       profile: '',
       token: '',
-      data: ''
+      initialPage: 0,
+      data: '',
+      paymentInfo: ''
     };
+
+    this.changePage = this.changePage.bind(this);
+    this.login = this.login.bind(this);
   }
 
-  componentWillMount() {
-    if (this.state.logged === false) {
-      this.setState({ currentPage: 4 });
+  changePage(pageId, data, paymentInfo) {
+    if (paymentInfo !== undefined) {
+      this.setState({
+        paymentInfo
+      });
     }
-  }
 
-  changePage(pageId, data) {
     if (data !== undefined) {
+      if (data.userAuthId) {
+        this.setState({ profile: data.userAuthId });
+      }
       this.setState({
         currentPage: pageId,
         data
       });
     } else {
-      this.setState({
-        currentPage: pageId
-      });
+      this.setState({ currentPage: pageId });
     }
   }
 
@@ -58,28 +65,37 @@ class App extends Component {
 
   render() {
     const routes = [
-      {page: <HomePage nav={this.changePage.bind(this)}/>, index: 0},
+      {page: <HomePage nav={this.changePage} />, index: 0},
       {page: <ToursList
-              nav={this.changePage.bind(this)}
+              nav={this.changePage}
               data={this.state.data}
               />, index: 1},
       {page: <TourDetails
-              nav={this.changePage.bind(this)}
+              nav={this.changePage}
               data={this.state.data}
               />, index: 2},
       {page: <ReviewOrder
-              nav={this.changePage.bind(this)}
+              nav={this.changePage}
               data={this.state.data}
+              paymentInfo={this.state.paymentInfo}
+              user={this.state.profile}
               />, index: 3},
-      {page: <WelcomeView log={this.login.bind(this)}/>, index: 4},
+      {page: <WelcomeView
+              log={this.login}
+              nav={this.changePage}
+              />, index: 4},
       {page: <RegisterUser
-              nav={this.changePage.bind(this)}
+              nav={this.changePage}
               data={this.state.profile}
               />, index: 5},
       {page: <UserProfile
-              nav={this.changePage.bind(this)}
-              data={this.state.profile}
-              />, index: 6}
+              nav={this.changePage}
+              data={this.state.data}
+              />, index: 6},
+      {page: <InitialOpen
+              nav={this.changePage}
+              log={this.login}
+              />, index: 7}
     ];
     return (
       <Navigator
@@ -88,8 +104,8 @@ class App extends Component {
         initialRouteStack={routes}
         renderScene={(route, navigator) => {
           return routes[this.state.currentPage].page;
-        }
-        }/>
+        }}
+      />
     );
   }
 }

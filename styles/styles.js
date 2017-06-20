@@ -1,23 +1,21 @@
 import {
   StyleSheet
 } from 'react-native';
-
-const fonts = {
-  mainFont: 'Copperplate'
-}
-
-const colors = {
-  mainBlue: '#003171',
-  jordyBlue: '#89C4F4',
-  almostWhite: '#ecf0f1',
-  lightBlue: '#4B77BE',
-  middleBlue: '#1F4788',
-  lightGreen: '#2ABB9B'
-};
+import home from './home.js';
+import toursList from './toursList.js';
+import tourDetails from './tourDetails.js';
+import assets from './assets.js';
 
 const components = StyleSheet.create({
   textColor: {
-    color: colors.middleBlue
+    color: assets.colors.middleBlue
+  },
+
+  location: {
+    fontSize: 50,
+    textAlign: 'center',
+    margin: 10,
+    color: assets.colors.middleBlue
   },
 
   locationPage: {
@@ -32,7 +30,7 @@ const components = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: colors.mainBlue,
+    borderColor: assets.colors.mainBlue,
     padding: 10,
     marginLeft: 30,
     marginRight: 30,
@@ -40,14 +38,7 @@ const components = StyleSheet.create({
   },
 
   general: {
-    backgroundColor: colors.almostWhite
-  },
-
-  logo: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10,
-    color: colors.mainBlue
+    backgroundColor: assets.colors.almostWhite
   },
 
   displayPicker: {
@@ -61,21 +52,8 @@ const components = StyleSheet.create({
     alignItems: 'center',
   },
 
-  cityTitlesView: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  cityTitlesText: {
-    color: 'white',
-    fontSize: 35,
-    fontWeight: 'bold'
-  },
-
   bookTourButton: {
-    backgroundColor: colors.lightGreen,
+    backgroundColor: assets.colors.lightGreen,
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 15,
@@ -84,23 +62,14 @@ const components = StyleSheet.create({
   },
 
   goBackButton: {
-    backgroundColor: colors.almostWhite,
+    backgroundColor: assets.colors.almostWhite,
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 15,
     height: 35,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: colors.mainBlue
-  },
-
-  buttonTransparent: {
-    backgroundColor: colors.almostWhite,
-    marginBottom: 15,
-    height: 35,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: colors.mainBlue
+    borderColor: assets.colors.mainBlue
   },
 
   passengersCounter: {
@@ -108,9 +77,9 @@ const components = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.mainBlue,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderColor: assets.colors.mainBlue,
+    // borderRadius: 5,
     marginLeft: 30,
     marginRight:30,
     padding: 25
@@ -125,7 +94,7 @@ const components = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: colors.mainBlue,
+    backgroundColor: assets.colors.mainBlue,
   },
   messageBox: {
     flex: 1,
@@ -158,63 +127,65 @@ const components = StyleSheet.create({
     alignItems: 'center',
   },
 
-  location: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10,
-    color: colors.middleBlue
-  },
-  tourDesc: {
-    backgroundColor: colors.mainBlue,
-    padding: 10,
-    color: colors.almostWhite,
-    borderRadius: 5
-  },
   tourTitle: {
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.middleBlue,
+    color: assets.colors.middleBlue,
     marginBottom: 10
   },
   h1: {
     fontSize: 50,
     textAlign: 'center',
     margin: 10,
-    color: colors.mainBlue
+    color: assets.colors.mainBlue
   },
   h2: {
     fontSize: 25,
     textAlign: 'center',
     margin: 10,
-    color: colors.almostWhite
+    color: assets.colors.almostWhite
   },
   body: {
     fontSize: 18,
     textAlign: 'center',
     margin: 10,
-    color: colors.almostWhite
+    color: assets.colors.almostWhite
   },
 
   body2: {
     fontSize: 15,
     textAlign: 'center',
-    color: colors.mainBlue,
+    color: assets.colors.mainBlue,
     marginTop: 4,
-    fontFamily: fonts.mainFont
+    fontFamily: assets.fonts.mainFont
   },
   userName: {
     fontSize: 17,
     textAlign: 'center',
     marginTop: 0,
     fontWeight: 'bold',
-    color: colors.middleBlue,
-    fontFamily: fonts.mainFont
+    color: assets.colors.middleBlue,
+    fontFamily: assets.fonts.mainFont
+  },
+
+  cardInputs: {
+    height: 40,
+    borderColor: assets.colors.almostWhite,
+    marginTop: 10,
+    backgroundColor: assets.colors.almostWhite,
+    borderRadius: 5,
+    paddingLeft: 10
   }
 });
 
-module.exports = {
+const Styles = {
   components: components,
-  colors: colors,
-  fonts: fonts
-}
+  home: home,
+  toursList: toursList,
+  tourDetails: tourDetails,
+  colors: assets.colors,
+  fonts: assets.fonts
+};
+
+export { Styles }

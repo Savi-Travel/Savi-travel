@@ -7,15 +7,17 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
+import UserAvatar from 'react-native-user-avatar';
 
+let port = 8080;
 let {width, height} = Dimensions.get('window');
 let styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'space-between',
     backgroundColor: 'white',
-    height,
-    width
+    alignItems: 'flex-start'
   },
   profilePic: {
     width: width / 2,
@@ -38,36 +40,55 @@ let styles = StyleSheet.create({
   }
 });
 
+
 class UserProfile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       tours: ''
     };
   }
 
   componentDidMount() {
-    console.log(this.props.data);
+    console.log('user data: ', this.props.data);
   }
+
+  bookingsByType(userType) {
+    // employee
+    // if (userType === 'Tour Guide' || userType === 'Driver') {
+      // return bookings for employee
+      // fetch(`https://savi-travel.com:${port}/api/bookings?userId=this.props.data.userAuthId`)
+      //   .then(resp => resp.json())
+      //   .then(data => console.log('booking data: ', data))
+      //   .catch(err => console.error(err));
+    // }
+    // return bookings for tourist
+  }
+
+
 
   render() {
     // this page is to render profile image
     // add buttons to continue as tourist/worker (for workers)
     // check userType - worker/tourist
-    let image = {
-      uri: this.props.data.picture
-    };
+    let imgUri = `https://savi-travel.com:${port}/api/images/`;
     return (
       <View style={styles.container}>
-        <Image style={styles.profilePic} source={image} />
-        <Text style={styles.textContent}>Hello {this.props.data.name},</Text>
+        <View style={{marginTop: 20}}>
+          <UserAvatar name={this.props.data.userName} src={imgUri + this.props.data.photo} size={100} />
+        </View>
+        <Text style={styles.textContent}>
+          Hello {this.props.data.userName.split(/ /)[0]},
+        </Text>
         <Text style={styles.textContent}>You have no booked tours.</Text>
-        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
+
+        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', alignSelf: 'center'}}>
           <TouchableHighlight
             style={styles.browseButon}
             underlayColor='#949494'
             onPress={() => {
-              this.props.nav(0);
+              this.props.nav(0, this.props.data);
             }}
           >
             <Text>Browse Tours</Text>
