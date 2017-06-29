@@ -35,4 +35,5 @@ From within the root directory:
 
 ```sh
 npm install
+gem install cocoapods
 ```
