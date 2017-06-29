@@ -5,7 +5,7 @@ A mobile app for linking tourists with tour guides and drivers
 
 - __Product Owner__: Ignacio Palma
 - __Scrum Master__: Seán M Ellison-Chen
-- __Development Team Members__: Alex D Moores, Vandeth Nop
+- __Development Team Members__: Alex D Moores and Vandeth Nop
 
 ## Table of Contents
 
