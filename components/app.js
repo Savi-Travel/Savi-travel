@@ -60,6 +60,7 @@ class App extends Component {
       profile: info.profile,
       token: info.token
     });
+    // add POST request to backend
   }
 
   render() {
